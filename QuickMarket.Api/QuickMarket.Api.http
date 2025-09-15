@@ -1,0 +1,6 @@
+@QuickMarket.Api_HostAddress = http://localhost:5259
+
+GET {{QuickMarket.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
