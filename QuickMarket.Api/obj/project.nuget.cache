@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sFCBq09HcZw=",
+  "dgSpecHash": "ZjbrPij0REE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

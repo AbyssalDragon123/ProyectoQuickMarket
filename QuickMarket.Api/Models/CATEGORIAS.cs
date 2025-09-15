@@ -1,7 +1,10 @@
-﻿namespace QuickMarket.Api.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace QuickMarket.Api.Models
 {
     public class CATEGORIAS
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public decimal ID_CATEGORIA { get; set; }
         public string NOMBRE { get; set; } = null!;
         public string? DESCRIPCION { get; set; }
