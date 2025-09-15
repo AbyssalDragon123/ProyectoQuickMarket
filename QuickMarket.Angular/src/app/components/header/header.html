@@ -1,0 +1,121 @@
+<header>
+  <!-- Logo -->
+  <a routerLink="/home" class="logo-wrap">
+    <img src="/img/zone(1).png" alt="Logo Ciber Zone" class="logo" />
+  </a>
+
+  <!-- Mega dropdown -->
+  <div class="mega-dropdown" (mouseleave)="clearActiveCategory()">
+    <div class="category-btn" (mouseenter)="setActiveCategory('computadoras')">
+      <img src="/img/categorias.png" alt="Categorías" class="category-icon" />
+      <span class="category-text">Categorías</span>
+    </div>
+
+    <div class="dropdown-content" *ngIf="true">
+      <!-- Izquierda: categorías -->
+      <div class="menu-left">
+        <ul>
+          <li (mouseenter)="setActiveCategory('computadoras')">
+            <span class="icon-circle">
+              <img src="\img\pantalla-del-ordenador.png" alt="Computadoras" />
+            </span>
+            <span class="li-text">Computadoras</span>
+          </li>
+
+          <li (mouseenter)="setActiveCategory('smartphones')">
+            <span class="icon-circle">
+              <img src="\img\pantalla-del-ordenador.png" alt="Smartphones" />
+            </span>
+            <span class="li-text">Smartphones</span>
+          </li>
+
+          <li (mouseenter)="setActiveCategory('gaming')">
+            <span class="icon-circle">
+              <img src="\img\pantalla-del-ordenador.png" alt="Gaming" />
+            </span>
+            <span class="li-text">Gaming</span>
+          </li>
+
+          <li (mouseenter)="setActiveCategory('audio')">
+            <span class="icon-circle">
+              <img src="\img\pantalla-del-ordenador.png" alt="Audio y Sonido" />
+            </span>
+            <span class="li-text">Audio y Sonido</span>
+          </li>
+
+          <li (mouseenter)="setActiveCategory('hogar-inteligente')">
+            <span class="icon-circle">
+              <img src="\img\pantalla-del-ordenador.png" alt="Hogar Inteligente" />
+            </span>
+            <span class="li-text">Hogar Inteligente</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Derecha: submenús -->
+      <div class="menu-right">
+        <!-- Computadoras -->
+        <div class="submenu" *ngIf="activeCategory === 'computadoras'">
+          <a routerLink="/laptops">Laptops</a>
+          <a routerLink="/desktops">Computadoras de Escritorio</a>
+          <a routerLink="/monitores">Monitores</a>
+          <a routerLink="/accesorios-pc">Accesorios PC</a>
+          <a routerLink="/impresoras">Impresoras</a>
+        </div>
+
+        <!-- Smartphones -->
+        <div class="submenu" *ngIf="activeCategory === 'smartphones'">
+          <a routerLink="/android">Android</a>
+          <a routerLink="/iphone">iPhone</a>
+          <a routerLink="/smartwatch">Smartwatches</a>
+          <a routerLink="/tablets">Tablets</a>
+          <a routerLink="/accesorios-movil">Accesorios</a>
+        </div>
+
+        <!-- Gaming -->
+        <div class="submenu" *ngIf="activeCategory === 'gaming'">
+          <a routerLink="/consolas">Consolas</a>
+          <a routerLink="/videojuegos">Videojuegos</a>
+          <a routerLink="/teclados-mouse">Teclados y Mouse Gamer</a>
+          <a routerLink="/auriculares-gamer">Auriculares Gamer</a>
+          <a routerLink="/sillas-gamer">Sillas Gamer</a>
+        </div>
+
+        <!-- Audio y Sonido -->
+        <div class="submenu" *ngIf="activeCategory === 'audio'">
+          <a routerLink="/bocinas">Bocinas Bluetooth</a>
+          <a routerLink="/audifonos">Audífonos</a>
+          <a routerLink="/home-theater">Home Theater</a>
+          <a routerLink="/barras-sonido">Barras de Sonido</a>
+          <a routerLink="/microfonos">Micrófonos</a>
+        </div>
+
+        <!-- Hogar Inteligente -->
+        <div class="submenu" *ngIf="activeCategory === 'hogar-inteligente'">
+          <a routerLink="/smart-tv">Smart TV</a>
+          <a routerLink="/alexa-google">Asistentes Virtuales</a>
+          <a routerLink="/camaras-seguridad">Cámaras de Seguridad</a>
+          <a routerLink="/iluminacion-smart">Iluminación Inteligente</a>
+          <a routerLink="/robot-aspiradora">Robots Aspiradora</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="search-bar">
+    <input type="text" placeholder="Buscar en Ciber Zone" />
+    <img src="/img/lupa.png" class="search-icon" alt="Buscar" />
+  </div>
+
+  <!-- Cuenta -->
+  <div class="account-btn">
+    <img src="/img/usuario.png" alt="Cuenta" />
+    <span class="account-text">Mi Cuenta</span>
+  </div>
+
+  <!-- Carrito -->
+  <div class="account-btn">
+    <img src="/img/carro-de-la-compra.png" alt="Carrito" />
+  </div>
+</header>
