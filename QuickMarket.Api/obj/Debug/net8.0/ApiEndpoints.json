@@ -1,5 +1,95 @@
 [
   {
+    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
+    "Method": "Me",
+    "RelativePath": "api/Auth/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/Auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
+    "Method": "RequestReset",
+    "RelativePath": "api/Auth/request-reset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.RequestResetDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/Auth/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.ResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
+    "Method": "VerifyCode",
+    "RelativePath": "api/Auth/verify-code",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.VerifyCodeDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "QuickMarket.Api.Controllers.CategoriasController",
     "Method": "GetCATEGORIAS",
     "RelativePath": "api/Categorias",
@@ -110,7 +200,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "GetCLIENTES",
+    "Method": "Get",
     "RelativePath": "api/Clientes",
     "HttpMethod": "GET",
     "IsController": true,
@@ -118,7 +208,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuickMarket.Api.Models.CLIENTES, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuickMarket.Api.Dtos.ClienteDto, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -130,21 +220,21 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "PostCLIENTES",
+    "Method": "Create",
     "RelativePath": "api/Clientes",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "cLIENTES",
-        "Type": "QuickMarket.Api.Models.CLIENTES",
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.ClienteCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "QuickMarket.Api.Models.CLIENTES",
+        "Type": "QuickMarket.Api.Dtos.ClienteDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -156,7 +246,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "GetCLIENTES",
+    "Method": "GetById",
     "RelativePath": "api/Clientes/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -170,7 +260,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "QuickMarket.Api.Models.CLIENTES",
+        "Type": "QuickMarket.Api.Dtos.ClienteDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -182,7 +272,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "PutCLIENTES",
+    "Method": "Update",
     "RelativePath": "api/Clientes/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -194,8 +284,8 @@
         "IsRequired": true
       },
       {
-        "Name": "cLIENTES",
-        "Type": "QuickMarket.Api.Models.CLIENTES",
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.ClienteUpdateDto",
         "IsRequired": true
       }
     ],
@@ -203,7 +293,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "DeleteCLIENTES",
+    "Method": "Delete",
     "RelativePath": "api/Clientes/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -213,6 +303,22 @@
         "Name": "id",
         "Type": "System.Decimal",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.DebugMailController",
+    "Method": "SendTest",
+    "RelativePath": "api/debug/email",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "to",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -328,7 +434,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.EmpleadosController",
-    "Method": "GetEMPLEADOS",
+    "Method": "Get",
     "RelativePath": "api/Empleados",
     "HttpMethod": "GET",
     "IsController": true,
@@ -336,7 +442,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuickMarket.Api.Models.EMPLEADOS, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuickMarket.Api.Dtos.EmpleadoDto, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -348,21 +454,21 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.EmpleadosController",
-    "Method": "PostEMPLEADOS",
+    "Method": "Create",
     "RelativePath": "api/Empleados",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "eMPLEADOS",
-        "Type": "QuickMarket.Api.Models.EMPLEADOS",
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.EmpleadoCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "QuickMarket.Api.Models.EMPLEADOS",
+        "Type": "QuickMarket.Api.Dtos.EmpleadoDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -374,7 +480,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.EmpleadosController",
-    "Method": "GetEMPLEADOS",
+    "Method": "GetById",
     "RelativePath": "api/Empleados/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -388,7 +494,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "QuickMarket.Api.Models.EMPLEADOS",
+        "Type": "QuickMarket.Api.Dtos.EmpleadoDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -400,7 +506,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.EmpleadosController",
-    "Method": "PutEMPLEADOS",
+    "Method": "Update",
     "RelativePath": "api/Empleados/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -412,8 +518,8 @@
         "IsRequired": true
       },
       {
-        "Name": "eMPLEADOS",
-        "Type": "QuickMarket.Api.Models.EMPLEADOS",
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.EmpleadoUpdateDto",
         "IsRequired": true
       }
     ],
@@ -421,7 +527,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.EmpleadosController",
-    "Method": "DeleteEMPLEADOS",
+    "Method": "Delete",
     "RelativePath": "api/Empleados/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,

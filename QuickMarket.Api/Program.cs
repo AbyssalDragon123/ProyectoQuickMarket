@@ -1,13 +1,16 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using QuickMarket.Api.Data; // <-- DbContext namespace
+using Microsoft.IdentityModel.Tokens;
+using QuickMarket.Api.Data;          // DbContext
+using QuickMarket.Api.Services;      // JwtTokenService, EmailService
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers
+// Controllers (si quieres mantener nombres EXACTOS de las props, descomenta la línea)
 builder.Services.AddControllers()
     .AddJsonOptions(o =>
     {
-        // si quieres conservar nombres EXACTOS de propiedades (NOMBRE, ID_EMPLEADO, etc.)
         // o.PropertyNamingPolicy = null;
     });
 
@@ -15,11 +18,15 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// DbContext con Oracle (lee appsettings.json -> ConnectionStrings:Oracle)
+// DbContext con Oracle
 builder.Services.AddDbContext<QuickMarketContext>(opt =>
     opt.UseOracle(builder.Configuration.GetConnectionString("Oracle")));
 
-// CORS para tu Angular (ajusta el origen)
+// Servicios de la app
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+// CORS para tu Angular (ajusta el origen si corresponde)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularClient", policy =>
@@ -28,9 +35,29 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
+// JWT Auth
+var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("Jwt:Key no configurado");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ClockSkew = TimeSpan.Zero // sin tolerancia de reloj (útil para expiraciones exactas)
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
-// Swagger en Dev (puedes habilitarlo también en Prod si quieres)
+// Swagger (puedes habilitar también en producción si quieres)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -39,9 +66,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS primero que Authorization (recomendado)
+// CORS antes de Auth/Authorization
 app.UseCors("AngularClient");
 
+// Orden correcto: Authentication -> Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuickMarket.Api.Data;
+using QuickMarket.Api.Dtos;
 using QuickMarket.Api.Models;
 
 namespace QuickMarket.Api.Controllers
@@ -15,108 +11,95 @@ namespace QuickMarket.Api.Controllers
     public class ClientesController : ControllerBase
     {
         private readonly QuickMarketContext _context;
+        public ClientesController(QuickMarketContext context) => _context = context;
 
-        public ClientesController(QuickMarketContext context)
-        {
-            _context = context;
-        }
+        private static string Norm(string s) => s.Trim();
 
         // GET: api/Clientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CLIENTES>>> GetCLIENTES()
+        public async Task<ActionResult<IEnumerable<ClienteDto>>> Get()
         {
-            return await _context.CLIENTES.ToListAsync();
+            var data = await _context.CLIENTES
+                .AsNoTracking()
+                .Select(c => new ClienteDto(
+                    c.ID_CLIENTE,
+                    c.ID_EMPLEADO,
+                    c.NOMBRE,
+                    c.TELEFONO
+                ))
+                .ToListAsync();
+
+            return Ok(data);
         }
 
         // GET: api/Clientes/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CLIENTES>> GetCLIENTES(decimal id)
+        [HttpGet("{id:decimal}")]
+        public async Task<ActionResult<ClienteDto>> GetById(decimal id)
         {
-            var cLIENTES = await _context.CLIENTES.FindAsync(id);
+            var c = await _context.CLIENTES
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.ID_CLIENTE == id);
 
-            if (cLIENTES == null)
-            {
-                return NotFound();
-            }
+            if (c is null) return NotFound();
 
-            return cLIENTES;
-        }
-
-        // PUT: api/Clientes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCLIENTES(decimal id, CLIENTES cLIENTES)
-        {
-            if (id != cLIENTES.ID_CLIENTE)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(cLIENTES).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CLIENTESExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return new ClienteDto(c.ID_CLIENTE, c.ID_EMPLEADO, c.NOMBRE, c.TELEFONO);
         }
 
         // POST: api/Clientes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CLIENTES>> PostCLIENTES(CLIENTES cLIENTES)
+        public async Task<ActionResult<ClienteDto>> Create(ClienteCreateDto dto)
         {
-            _context.CLIENTES.Add(cLIENTES);
-            try
+            if (dto.IdEmpleado.HasValue)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CLIENTESExists(cLIENTES.ID_CLIENTE))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                var existeEmp = await _context.EMPLEADOS.AnyAsync(e => e.ID_EMPLEADO == dto.IdEmpleado.Value);
+                if (!existeEmp) return BadRequest("El empleado asignado no existe.");
             }
 
-            return CreatedAtAction("GetCLIENTES", new { id = cLIENTES.ID_CLIENTE }, cLIENTES);
-        }
-
-        // DELETE: api/Clientes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCLIENTES(decimal id)
-        {
-            var cLIENTES = await _context.CLIENTES.FindAsync(id);
-            if (cLIENTES == null)
+            var entity = new CLIENTES
             {
-                return NotFound();
-            }
+                ID_EMPLEADO = dto.IdEmpleado,
+                NOMBRE = Norm(dto.Nombre),
+                TELEFONO = string.IsNullOrWhiteSpace(dto.Telefono) ? null : Norm(dto.Telefono)
+            };
 
-            _context.CLIENTES.Remove(cLIENTES);
+            _context.CLIENTES.Add(entity);
             await _context.SaveChangesAsync();
 
+            var result = new ClienteDto(entity.ID_CLIENTE, entity.ID_EMPLEADO, entity.NOMBRE, entity.TELEFONO);
+            return CreatedAtAction(nameof(GetById), new { id = entity.ID_CLIENTE }, result);
+        }
+
+        // PUT: api/Clientes/5
+        [HttpPut("{id:decimal}")]
+        public async Task<IActionResult> Update(decimal id, ClienteUpdateDto dto)
+        {
+            var entity = await _context.CLIENTES.FirstOrDefaultAsync(x => x.ID_CLIENTE == id);
+            if (entity is null) return NotFound();
+
+            if (dto.IdEmpleado.HasValue)
+            {
+                var existeEmp = await _context.EMPLEADOS.AnyAsync(e => e.ID_EMPLEADO == dto.IdEmpleado.Value);
+                if (!existeEmp) return BadRequest("El empleado asignado no existe.");
+            }
+
+            entity.ID_EMPLEADO = dto.IdEmpleado;
+            entity.NOMBRE = Norm(dto.Nombre);
+            entity.TELEFONO = string.IsNullOrWhiteSpace(dto.Telefono) ? null : Norm(dto.Telefono);
+
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        private bool CLIENTESExists(decimal id)
+        // DELETE: api/Clientes/5
+        [HttpDelete("{id:decimal}")]
+        public async Task<IActionResult> Delete(decimal id)
         {
-            return _context.CLIENTES.Any(e => e.ID_CLIENTE == id);
+            var entity = await _context.CLIENTES.FindAsync(id);
+            if (entity is null) return NotFound();
+
+            _context.CLIENTES.Remove(entity);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

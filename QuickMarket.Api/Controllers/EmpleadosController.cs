@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuickMarket.Api.Data;
+using QuickMarket.Api.Dtos;
 using QuickMarket.Api.Models;
 
 namespace QuickMarket.Api.Controllers
@@ -15,108 +11,97 @@ namespace QuickMarket.Api.Controllers
     public class EmpleadosController : ControllerBase
     {
         private readonly QuickMarketContext _context;
+        public EmpleadosController(QuickMarketContext context) => _context = context;
 
-        public EmpleadosController(QuickMarketContext context)
-        {
-            _context = context;
-        }
+        private static string Norm(string s) => s.Trim();
 
         // GET: api/Empleados
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EMPLEADOS>>> GetEMPLEADOS()
+        public async Task<ActionResult<IEnumerable<EmpleadoDto>>> Get()
         {
-            return await _context.EMPLEADOS.ToListAsync();
+            var data = await _context.EMPLEADOS
+                .AsNoTracking()
+                .Select(e => new EmpleadoDto(
+                    e.ID_EMPLEADO,
+                    e.NOMBRE,
+                    e.CARNET,
+                    e.CREADO_EN,
+                    e.ACTUALIZADO_EN
+                ))
+                .ToListAsync();
+
+            return Ok(data);
         }
 
         // GET: api/Empleados/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EMPLEADOS>> GetEMPLEADOS(decimal id)
+        [HttpGet("{id:decimal}")]
+        public async Task<ActionResult<EmpleadoDto>> GetById(decimal id)
         {
-            var eMPLEADOS = await _context.EMPLEADOS.FindAsync(id);
+            var e = await _context.EMPLEADOS
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.ID_EMPLEADO == id);
 
-            if (eMPLEADOS == null)
-            {
-                return NotFound();
-            }
+            if (e is null) return NotFound();
 
-            return eMPLEADOS;
-        }
-
-        // PUT: api/Empleados/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEMPLEADOS(decimal id, EMPLEADOS eMPLEADOS)
-        {
-            if (id != eMPLEADOS.ID_EMPLEADO)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(eMPLEADOS).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EMPLEADOSExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return new EmpleadoDto(e.ID_EMPLEADO, e.NOMBRE, e.CARNET, e.CREADO_EN, e.ACTUALIZADO_EN);
         }
 
         // POST: api/Empleados
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<EMPLEADOS>> PostEMPLEADOS(EMPLEADOS eMPLEADOS)
+        public async Task<ActionResult<EmpleadoDto>> Create(EmpleadoCreateDto dto)
         {
-            _context.EMPLEADOS.Add(eMPLEADOS);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (EMPLEADOSExists(eMPLEADOS.ID_EMPLEADO))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var nombre = Norm(dto.Nombre);
+            var carnet = Norm(dto.Carnet);
 
-            return CreatedAtAction("GetEMPLEADOS", new { id = eMPLEADOS.ID_EMPLEADO }, eMPLEADOS);
-        }
+            var carnetExiste = await _context.EMPLEADOS.AnyAsync(x => x.CARNET == carnet);
+            if (carnetExiste) return Conflict("Ya existe un empleado con ese carnet.");
 
-        // DELETE: api/Empleados/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEMPLEADOS(decimal id)
-        {
-            var eMPLEADOS = await _context.EMPLEADOS.FindAsync(id);
-            if (eMPLEADOS == null)
+            var entity = new EMPLEADOS
             {
-                return NotFound();
-            }
+                NOMBRE = nombre,
+                CARNET = carnet,
+                CREADO_EN = DateTime.UtcNow
+            };
 
-            _context.EMPLEADOS.Remove(eMPLEADOS);
+            _context.EMPLEADOS.Add(entity);
             await _context.SaveChangesAsync();
 
+            var result = new EmpleadoDto(entity.ID_EMPLEADO, entity.NOMBRE, entity.CARNET, entity.CREADO_EN, entity.ACTUALIZADO_EN);
+            return CreatedAtAction(nameof(GetById), new { id = entity.ID_EMPLEADO }, result);
+        }
+
+        // PUT: api/Empleados/5
+        [HttpPut("{id:decimal}")]
+        public async Task<IActionResult> Update(decimal id, EmpleadoUpdateDto dto)
+        {
+            var entity = await _context.EMPLEADOS.FirstOrDefaultAsync(x => x.ID_EMPLEADO == id);
+            if (entity is null) return NotFound();
+
+            var nombre = Norm(dto.Nombre);
+            var carnet = Norm(dto.Carnet);
+
+            var carnetDuplicado = await _context.EMPLEADOS
+                .AnyAsync(x => x.CARNET == carnet && x.ID_EMPLEADO != id);
+            if (carnetDuplicado) return Conflict("Ya existe otro empleado con ese carnet.");
+
+            entity.NOMBRE = nombre;
+            entity.CARNET = carnet;
+            entity.ACTUALIZADO_EN = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        private bool EMPLEADOSExists(decimal id)
+        // DELETE: api/Empleados/5
+        [HttpDelete("{id:decimal}")]
+        public async Task<IActionResult> Delete(decimal id)
         {
-            return _context.EMPLEADOS.Any(e => e.ID_EMPLEADO == id);
+            var entity = await _context.EMPLEADOS.FindAsync(id);
+            if (entity is null) return NotFound();
+
+            _context.EMPLEADOS.Remove(entity);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

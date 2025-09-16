@@ -1,66 +1,58 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\",
+  "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\models\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\utils\\securityutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:utils\\securityutils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\models\\detalle_ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\detalle_ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\models\\productos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\productos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\models\\ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\models\\categorias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\categorias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\models\\empleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\empleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\data\\quickmarketcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\data\\quickmarketcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:data\\quickmarketcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\models\\detalle_ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\detalle_ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\models\\productos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\productos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\models\\ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\models\\categorias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\categorias.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\models\\empleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:models\\empleados.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\controllers\\detalle_ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\controllers\\detalle_ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\detalle_ventascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto\\proyectoquickmarket\\quickmarket.api\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|c:\\users\\admin\\onedrive\\escritorio\\proyecto quickmarket\\proyectoquickmarket\\quickmarket.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7CB537C8-30EE-49A1-94D4-7640045B7BA0}|QuickMarket.Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -70,28 +62,28 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CATEGORIAS.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\CATEGORIAS.cs",
-              "RelativeDocumentMoniker": "Models\\CATEGORIAS.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\CATEGORIAS.cs*",
-              "RelativeToolTip": "Models\\CATEGORIAS.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA9AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "SecurityUtils.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Utils\\SecurityUtils.cs",
+              "RelativeDocumentMoniker": "Utils\\SecurityUtils.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Utils\\SecurityUtils.cs*",
+              "RelativeToolTip": "Utils\\SecurityUtils.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:29:47.467Z",
+              "WhenOpened": "2025-09-16T00:07:37.332Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "EMPLEADOS.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\EMPLEADOS.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\EMPLEADOS.cs",
               "RelativeDocumentMoniker": "Models\\EMPLEADOS.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\EMPLEADOS.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\EMPLEADOS.cs",
               "RelativeToolTip": "Models\\EMPLEADOS.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -100,50 +92,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-14T23:18:06.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "EmpleadosController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\EmpleadosController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\EmpleadosController.cs",
               "RelativeDocumentMoniker": "Controllers\\EmpleadosController.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\EmpleadosController.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\EmpleadosController.cs",
               "RelativeToolTip": "Controllers\\EmpleadosController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAkwHQAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAkwGsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-14T23:47:44.695Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CLIENTES.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\CLIENTES.cs",
-              "RelativeDocumentMoniker": "Models\\CLIENTES.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\CLIENTES.cs",
-              "RelativeToolTip": "Models\\CLIENTES.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:29:35.496Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "DETALLE_VENTAS.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\DETALLE_VENTAS.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\DETALLE_VENTAS.cs",
               "RelativeDocumentMoniker": "Models\\DETALLE_VENTAS.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\DETALLE_VENTAS.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\DETALLE_VENTAS.cs",
               "RelativeToolTip": "Models\\DETALLE_VENTAS.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -152,11 +118,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "QuickMarketContext.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Data\\QuickMarketContext.cs",
+              "RelativeDocumentMoniker": "Data\\QuickMarketContext.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Data\\QuickMarketContext.cs",
+              "RelativeToolTip": "Data\\QuickMarketContext.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAkwEwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T23:26:02.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CATEGORIAS.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\CATEGORIAS.cs",
+              "RelativeDocumentMoniker": "Models\\CATEGORIAS.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\CATEGORIAS.cs",
+              "RelativeToolTip": "Models\\CATEGORIAS.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T23:29:47.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "PRODUCTOS.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\PRODUCTOS.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\PRODUCTOS.cs",
               "RelativeDocumentMoniker": "Models\\PRODUCTOS.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\PRODUCTOS.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\PRODUCTOS.cs",
               "RelativeToolTip": "Models\\PRODUCTOS.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -165,11 +157,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "VENTAS.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\VENTAS.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\VENTAS.cs",
               "RelativeDocumentMoniker": "Models\\VENTAS.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\VENTAS.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Models\\VENTAS.cs",
               "RelativeToolTip": "Models\\VENTAS.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -178,88 +170,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "CategoriasController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\CategoriasController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\CategoriasController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoriasController.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\CategoriasController.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\CategoriasController.cs",
               "RelativeToolTip": "Controllers\\CategoriasController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:49:35.212Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "QuickMarketContext.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Data\\QuickMarketContext.cs",
-              "RelativeDocumentMoniker": "Data\\QuickMarketContext.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Data\\QuickMarketContext.cs",
-              "RelativeToolTip": "Data\\QuickMarketContext.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAkwFoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:26:02.42Z",
+              "WhenOpened": "2025-09-14T23:49:35.212Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "ClientesController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ClientesController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ClientesController.cs",
               "RelativeDocumentMoniker": "Controllers\\ClientesController.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ClientesController.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ClientesController.cs",
               "RelativeToolTip": "Controllers\\ClientesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:48:19.05Z"
+              "WhenOpened": "2025-09-14T23:48:19.05Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "VentasController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\VentasController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\VentasController.cs",
               "RelativeDocumentMoniker": "Controllers\\VentasController.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\VentasController.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\VentasController.cs",
               "RelativeToolTip": "Controllers\\VentasController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:51:29.397Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Detalle_VentasController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\Detalle_VentasController.cs",
-              "RelativeDocumentMoniker": "Controllers\\Detalle_VentasController.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\Detalle_VentasController.cs",
-              "RelativeToolTip": "Controllers\\Detalle_VentasController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:50:29.721Z"
+              "WhenOpened": "2025-09-14T23:51:29.397Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "ProductosController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ProductosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductosController.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ProductosController.cs",
-              "RelativeToolTip": "Controllers\\ProductosController.cs",
+              "Title": "Detalle_VentasController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\Detalle_VentasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\Detalle_VentasController.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\Detalle_VentasController.cs",
+              "RelativeToolTip": "Controllers\\Detalle_VentasController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:50:58.373Z"
+              "WhenOpened": "2025-09-14T23:50:29.721Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "ProductosController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ProductosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductosController.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\Controllers\\ProductosController.cs",
+              "RelativeToolTip": "Controllers\\ProductosController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T23:18:21.065Z"
+              "WhenOpened": "2025-09-14T23:50:58.373Z",
+              "EditorCaption": ""
             }
           ]
         }
