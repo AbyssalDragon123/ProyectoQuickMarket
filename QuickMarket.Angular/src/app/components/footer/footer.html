@@ -1,9 +1,32 @@
 <footer class="footer-kemik">
-  
+
   <div class="footer-container">
+
+    <!-- Políticas -->
+    <div class="footer-section">
+       <h3>Políticas</h3>
+  <ul class="politicas__links">
+    <li>
+      <a [routerLink]="['/terminos-condiciones']"
+         fragment="hero"
+         routerLinkActive="activo">Términos y Condiciones</a>
+    </li>
+    <li>
+      <a [routerLink]="['/politica-privacidad']"
+         fragment="hero"
+         routerLinkActive="activo">Política de Privacidad</a>
+    </li>
+    <li>
+      <a [routerLink]="['/politica-devoluciones']"
+         fragment="hero"
+         routerLinkActive="activo">Política de Devoluciones</a>
+    </li>
+  </ul>
+    </div>
+
     <!-- Contacto -->
     <div class="footer-section">
-      <h3>📞 Contáctanos</h3>
+      <h3>Contáctanos</h3>
       <p>Tel: +502 1234-5678</p>
       <p>Email: soporte@mitienda.com</p>
       <p>Dirección: Ciudad de Guatemala</p>
@@ -11,28 +34,31 @@
 
     <!-- Redes sociales -->
     <div class="footer-section">
-      <h3>🌐 Síguenos</h3>
+      <h3>Síguenos</h3>
       <div class="social-links">
-        <a href="#" aria-label="Facebook">📘</a>
-        <a href="#" aria-label="Instagram">📷</a>
-        <a href="#" aria-label="Twitter">🐦</a>
-        <a href="#" aria-label="YouTube">▶️</a>
+        <a href="#" aria-label="Facebook">
+          <img src="/iconos/facebook.png" alt="Facebook">
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img src="/iconos/instagram.png" alt="Instagram">
+        </a>
+        <a href="#" aria-label="Twitter">
+          <img src="/iconos/twitter (1).png" alt="Twitter">
+        </a>
+        <a href="#" aria-label="YouTube">
+          <img src="/iconos/youtube.png" alt="YouTube">
+        </a>
+        <a href="#">
+          <img src="/iconos/tik-tok.png" alt="TikTok">
+        </a>
       </div>
     </div>
 
-    <!-- Políticas -->
-    <div class="footer-section">
-      <h3>📑 Políticas</h3>
-      <ul>
-        <li><a href="#">Términos y Condiciones</a></li>
-        <li><a href="#">Política de Privacidad</a></li>
-        <li><a href="#">Política de Devoluciones</a></li>
-      </ul>
-    </div>
+
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; 2025 CiberZone. Todos los derechos reservados.</p>
+    <p>&copy; 2025 QuickMarket. Todos los derechos reservados.</p>
   </div>
 </footer>
 

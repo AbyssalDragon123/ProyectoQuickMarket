@@ -1,0 +1,28 @@
+/* Altura completa y layout en columna */
+html, body { height: 100%; margin: 0; }
+app-root, .app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* El contenido empuja al footer al fondo cuando no es fijo */
+.page-content { flex: 1 0 auto; }
+
+/* Header siempre sticky arriba */
+.sticky-header { position: sticky; top: 0; z-index: 1000; }
+
+/* Footer FIJO para páginas NO políticas */
+.footer-fixed {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 500;        /* por debajo del header */
+  width: 100%;
+}
+
+/* Evitar que el footer fijo tape contenido en páginas NO políticas */
+.page-content.has-sticky-footer {
+  padding-bottom: 160px; /* ajusta a la altura real de tu footer */
+}
+
+/* En 'policy-mode' el footer NO es fijo, así que no necesitamos nada extra */

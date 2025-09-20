@@ -1,7 +1,11 @@
-<app-header></app-header>
+<div class="app-shell" [class.policy-mode]="isPolicyRoute">
+  <app-header class="sticky-header"></app-header>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+  <!-- cuando el footer es fijo, damos padding-bottom al contenido -->
+  <main class="page-content" [class.has-sticky-footer]="!isPolicyRoute">
+    <router-outlet></router-outlet>
+  </main>
 
-<app-footer></app-footer>
+  <!-- por defecto fijo; en políticas NO fijo -->
+  <app-footer [class.footer-fixed]="!isPolicyRoute"></app-footer>
+</div>

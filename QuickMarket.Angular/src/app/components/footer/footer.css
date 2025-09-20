@@ -1,36 +1,39 @@
-/* Footer fijo abajo */
+/* El host <app-footer> */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Cuando App le agregue la clase .footer-fixed al host, el footer será fijo */
+:host(.footer-fixed) {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 500; /* debajo del header */
+}
+
+/* ---- Estilos visuales del footer ---- */
 .footer-kemik {
-  margin-top: auto;
-  background-color: #1E3A5F;
+  background-color: #a42e2e;
   color: #fff;
   padding: 40px 20px 20px;
   font-family: Arial, sans-serif;
 }
 
-/* FOOTER */
-footer {
-  width: 100%;
-  background-color: #1E3A5F;
-  color: #FFF3E0;
-  text-align: center;
-  padding: 20px 30px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-}
 .footer-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
   gap: 30px;
 }
 
 .footer-section h3 {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: #ffcc00;
+  color: #ffffff;
 }
 
 .footer-section p,
@@ -43,24 +46,11 @@ footer {
   display: block;
 }
 
-.footer-section a:hover {
-  color: #fff;
-}
+.footer-section a:hover { color: #fff; }
 
-.social-links {
-  display: flex;
-  gap: 15px;
-  font-size: 1.5rem;
-}
-
-.social-links a {
-  color: #ccc;
-  transition: 0.3s;
-}
-
-.social-links a:hover {
-  color: #ffcc00;
-}
+.social-links { display: flex; gap: 15px; font-size: 1.5rem; }
+.social-links a { color: #ccc; transition: 0.3s; }
+.social-links a:hover { color: #ffcc00; }
 
 .footer-bottom {
   text-align: center;
@@ -73,25 +63,6 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .social-links {
-    justify-content: center;
-  }
+  .footer-container { flex-direction: column; text-align: center; }
+  .social-links { justify-content: center; }
 }
-/* Aseguramos que la página ocupe toda la altura */
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* El contenido crecerá y empujará al footer */
-main {
-  flex: 1;
-}
-

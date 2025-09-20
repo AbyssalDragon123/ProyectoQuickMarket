@@ -1,13 +1,30 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
+    provideRouter(
+      routes,
+
+      // Scroll a anclas y restauración
+      withInMemoryScrolling({
+        // 'top' sube al inicio cuando cambias de ruta sin ancla;
+        // usa 'enabled' si quieres restaurar la posición anterior.
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
+      }),
+
+      // Offset para que el header sticky no tape el ancla
+      withRouterConfig({
+
+      }),
+    ),
+
+    provideClientHydration(withEventReplay()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), provideClientHydration(withEventReplay())
-  ]
+    provideBrowserGlobalErrorListeners(),
+  ],
 };

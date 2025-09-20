@@ -1,0 +1,54 @@
+/* Capa de fondo con imagen y blur */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: url('/assets/bg.jpg') center/cover no-repeat;
+  filter: blur(8px);
+  transform: scale(1.05); /* evita bordes al blur */
+  z-index: 0;
+}
+
+/* Velo oscuro para contraste */
+.veil {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 1;
+}
+
+/* Centrado de la tarjeta */
+.center {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+/* Tarjeta */
+.auth-card {
+  width: min(92vw, 420px);
+  padding: 12px 12px 20px;
+  border-radius: 14px;
+  backdrop-filter: saturate(130%);
+}
+
+.form { display: grid; gap: 12px; margin-top: 12px; }
+.w100 { width: 100%; }
+
+.loading {
+  margin-top: 10px;
+  color: #1976d2;
+  font-weight: 600;
+  text-align: center;
+}
+.error {
+  margin-top: 10px;
+  color: #d32f2f;
+  text-align: center;
+}
+
+/* Opcional: blur a toda la app cuando estés en /login */
+.blur-bg app-root, .blur-bg body {
+  overflow: hidden;
+}

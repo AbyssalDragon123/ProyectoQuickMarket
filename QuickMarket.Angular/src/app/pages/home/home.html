@@ -1,1 +1,26 @@
-<p>home works!</p>
+<section class="categories">
+  <div class="scroll">
+    <button class="nav" aria-label="Anterior" (click)="go(-1)" [disabled]="animating">‹</button>
+
+    <!-- Viewport enmascarado: oculta bordes para que no se vea el “corte” -->
+    <div class="viewport">
+      <div class="list" #list>
+        <button
+          class="cat"
+          *ngFor="let c of looped; trackBy: trackById"
+          type="button"
+          [class.active]="c.id === activeId"
+          [disabled]="animating"
+          (click)="onCategoryClick(c)"
+        >
+          <span class="circle">
+            <img [src]="c.icon" [alt]="c.name" width="36" height="36" loading="eager" />
+          </span>
+          <span class="label">{{ c.name }}</span>
+        </button>
+      </div>
+    </div>
+
+    <button class="nav" aria-label="Siguiente" (click)="go(1)" [disabled]="animating">›</button>
+  </div>
+</section>

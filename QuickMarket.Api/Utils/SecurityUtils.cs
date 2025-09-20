@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿using Org.BouncyCastle.Crypto.Generators;
 using System.Security.Cryptography;
+=======
+﻿using System.Security.Cryptography;
+>>>>>>> 020100d (mejoras en BD y Actualizacion Angular)
 
 namespace QuickMarket.Api.Utils
 {

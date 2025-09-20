@@ -475,6 +475,7 @@ C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\Quic
 C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\QuickMarket.Api.pdb
 C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\QuickMarket.Api.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\ref\QuickMarket.Api.dll
+<<<<<<< HEAD
 C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\QuickMarket.Api.csproj.AssemblyReference.cache
 C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\rpswa.dswa.cache.json
 C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\QuickMarket.Api.GeneratedMSBuildEditorConfig.editorconfig
@@ -728,3 +729,19 @@ C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\
 C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\QuickMar.C24F45D0.Up2Date
 C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\QuickMarket.Api.genruntimeconfig.cache
 C:\Users\Admin\OneDrive\Escritorio\proyecto\ProyectoQuickMarket\QuickMarket.Api\obj\Debug\net8.0\ref\QuickMarket.Api.dll
+=======
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\MailKit.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\MimeKit.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Admin\OneDrive\Escritorio\Proyecto QuickMarket\ProyectoQuickMarket\QuickMarket.Api\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+>>>>>>> 020100d (mejoras en BD y Actualizacion Angular)
