@@ -1,122 +1,126 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿// Controllers/CategoriasController.cs
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuickMarket.Api.Data;
+using QuickMarket.Api.Dtos;
 using QuickMarket.Api.Models;
 
 namespace QuickMarket.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CategoriasController : ControllerBase
     {
-        private readonly QuickMarketContext _context;
+        private readonly QuickMarketContext _db;
+        public CategoriasController(QuickMarketContext db) => _db = db;
 
-        public CategoriasController(QuickMarketContext context)
-        {
-            _context = context;
-        }
+        private static string Norm(string s) => s.Trim().ToUpperInvariant();
 
-        // GET: api/Categorias
+        // GET: api/categorias?q=...&page=1&pageSize=20
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CATEGORIAS>>> GetCATEGORIAS()
+        [AllowAnonymous]
+        public async Task<ActionResult<object>> GetAll([FromQuery] string? q, [FromQuery] int page = 1, [FromQuery] int pageSize = 20)
         {
-            return await _context.CATEGORIAS.ToListAsync();
+            page = page <= 0 ? 1 : page;
+            pageSize = pageSize is < 1 or > 100 ? 20 : pageSize;
+
+            var qry = _db.CATEGORIAS.AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                var term = Norm(q);
+                qry = qry.Where(c =>
+                    c.NOMBRE.ToUpper().Contains(term) ||
+                    (c.DESCRIPCION != null && c.DESCRIPCION.ToUpper().Contains(term))
+                );
+            }
+
+            var total = await qry.CountAsync();
+            var items = await qry
+                .OrderBy(c => c.NOMBRE)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(c => new CategoriaDto(c.ID_CATEGORIA, c.NOMBRE, c.DESCRIPCION, c.CREADO_EN, c.ACTUALIZADO_EN))
+                .ToListAsync();
+
+            return Ok(new { total, page, pageSize, items });
         }
 
-        // GET: api/Categorias/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CATEGORIAS>> GetCATEGORIAS(decimal id)
+        // GET: api/categorias/5
+        [HttpGet("{id:decimal}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<CategoriaDto>> GetById(decimal id)
         {
-            var cATEGORIAS = await _context.CATEGORIAS.FindAsync(id);
-
-            if (cATEGORIAS == null)
-            {
-                return NotFound();
-            }
-
-            return cATEGORIAS;
+            var c = await _db.CATEGORIAS.AsNoTracking().FirstOrDefaultAsync(x => x.ID_CATEGORIA == id);
+            if (c is null) return NotFound();
+            return new CategoriaDto(c.ID_CATEGORIA, c.NOMBRE, c.DESCRIPCION, c.CREADO_EN, c.ACTUALIZADO_EN);
         }
 
-        // PUT: api/Categorias/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCATEGORIAS(decimal id, CATEGORIAS cATEGORIAS)
-        {
-            if (id != cATEGORIAS.ID_CATEGORIA)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(cATEGORIAS).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CATEGORIASExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Categorias
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/categorias  (admin)
         [HttpPost]
-        public async Task<ActionResult<CATEGORIAS>> PostCATEGORIAS(CATEGORIAS cATEGORIAS)
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> Create([FromBody] CategoriaCreateDto dto)
         {
-            _context.CATEGORIAS.Add(cATEGORIAS);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CATEGORIASExists(cATEGORIAS.ID_CATEGORIA))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var nombre = Norm(dto.Nombre);
 
-            return CreatedAtAction("GetCATEGORIAS", new { id = cATEGORIAS.ID_CATEGORIA }, cATEGORIAS);
+            // Unicidad case-insensitive
+            var exists = await _db.CATEGORIAS.AsNoTracking()
+                .Where(c => c.NOMBRE == nombre)
+                .Select(_ => 1).FirstOrDefaultAsync() == 1;
+
+            if (exists) return Conflict("Ya existe una categoría con ese nombre.");
+
+            var entity = new CATEGORIAS
+            {
+                NOMBRE = nombre,
+                DESCRIPCION = dto.Descripcion?.Trim(),
+                CREADO_EN = DateTime.UtcNow
+            };
+
+            _db.CATEGORIAS.Add(entity);
+            await _db.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetById), new { id = entity.ID_CATEGORIA },
+                new CategoriaDto(entity.ID_CATEGORIA, entity.NOMBRE, entity.DESCRIPCION, entity.CREADO_EN, entity.ACTUALIZADO_EN));
         }
 
-        // DELETE: api/Categorias/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCATEGORIAS(decimal id)
+        // PUT: api/categorias/5  (admin)
+        [HttpPut("{id:decimal}")]
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> Update(decimal id, [FromBody] CategoriaUpdateDto dto)
         {
-            var cATEGORIAS = await _context.CATEGORIAS.FindAsync(id);
-            if (cATEGORIAS == null)
-            {
-                return NotFound();
-            }
+            var entity = await _db.CATEGORIAS.FirstOrDefaultAsync(c => c.ID_CATEGORIA == id);
+            if (entity is null) return NotFound();
 
-            _context.CATEGORIAS.Remove(cATEGORIAS);
-            await _context.SaveChangesAsync();
+            var nombre = Norm(dto.Nombre);
 
+            // Verificar unicidad (excluyendo el propio id)
+            var exists = await _db.CATEGORIAS.AsNoTracking()
+                .Where(c => c.NOMBRE == nombre && c.ID_CATEGORIA != id)
+                .Select(_ => 1).FirstOrDefaultAsync() == 1;
+
+            if (exists) return Conflict("Ya existe una categoría con ese nombre.");
+
+            entity.NOMBRE = nombre;
+            entity.DESCRIPCION = dto.Descripcion?.Trim();
+            entity.ACTUALIZADO_EN = DateTime.UtcNow;
+
+            await _db.SaveChangesAsync();
+            return Ok(new CategoriaDto(entity.ID_CATEGORIA, entity.NOMBRE, entity.DESCRIPCION, entity.CREADO_EN, entity.ACTUALIZADO_EN));
+        }
+
+        // DELETE: api/categorias/5  (admin)
+        [HttpDelete("{id:decimal}")]
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> Delete(decimal id)
+        {
+            var entity = await _db.CATEGORIAS.FirstOrDefaultAsync(c => c.ID_CATEGORIA == id);
+            if (entity is null) return NotFound();
+
+            _db.CATEGORIAS.Remove(entity);
+            await _db.SaveChangesAsync();
             return NoContent();
-        }
-
-        private bool CATEGORIASExists(decimal id)
-        {
-            return _context.CATEGORIAS.Any(e => e.ID_CATEGORIA == id);
         }
     }
 }

@@ -1,63 +1,65 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using QuickMarket.Api.Data;          // DbContext
-using QuickMarket.Api.Services;      // JwtTokenService, EmailService
+using QuickMarket.Api.Data;
+using QuickMarket.Api.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Controllers (si quieres mantener nombres EXACTOS de las props, descomenta la línea)
-builder.Services.AddControllers()
-    .AddJsonOptions(o =>
-    {
-        // o.PropertyNamingPolicy = null;
-    });
+// ===== DbContext (Oracle) =====
+builder.Services.AddDbContext<QuickMarketContext>(opt =>
+    opt.UseOracle(builder.Configuration.GetConnectionString("Oracle"))
+);
 
-// Swagger/OpenAPI
+// ===== Servicios propios =====
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+// ===== Auth con JWT =====
+var jwtKey = builder.Configuration["Jwt:Key"];
+var key = Encoding.UTF8.GetBytes(jwtKey!);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+// ===== CORS para Angular =====
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy => policy
+            .WithOrigins("http://localhost:4200") // ?? cambia si usas otro puerto/dominio
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+    );
+});
+
+// ===== Controllers + Swagger =====
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// DbContext con Oracle
-builder.Services.AddDbContext<QuickMarketContext>(opt =>
-    opt.UseOracle(builder.Configuration.GetConnectionString("Oracle")));
-
-// Servicios de la app
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
-
-// CORS para tu Angular (ajusta el origen si corresponde)
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AngularClient", policy =>
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod());
-});
-
-// JWT Auth
-var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("Jwt:Key no configurado");
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(opt =>
-    {
-        opt.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidateLifetime = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-            ClockSkew = TimeSpan.Zero // sin tolerancia de reloj (útil para expiraciones exactas)
-        };
-    });
-
-builder.Services.AddAuthorization();
-
 var app = builder.Build();
 
-// Swagger (puedes habilitar también en producción si quieres)
+// ===== Middleware =====
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -66,10 +68,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS antes de Auth/Authorization
-app.UseCors("AngularClient");
+app.UseCors("AllowAngular"); // habilita CORS para tu frontend
 
-// Orden correcto: Authentication -> Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 

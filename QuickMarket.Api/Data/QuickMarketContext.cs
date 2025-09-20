@@ -1,6 +1,7 @@
-﻿using System.Threading;
+﻿// Data/QuickMarketContext.cs
 using Microsoft.EntityFrameworkCore;
 using QuickMarket.Api.Models;
+using System.Threading;
 
 namespace QuickMarket.Api.Data
 {
@@ -8,140 +9,207 @@ namespace QuickMarket.Api.Data
     {
         public QuickMarketContext(DbContextOptions<QuickMarketContext> options) : base(options) { }
 
-        public DbSet<EMPLEADOS> EMPLEADOS { get; set; }
+        public DbSet<USUARIOS> USUARIOS { get; set; }
         public DbSet<CLIENTES> CLIENTES { get; set; }
         public DbSet<CATEGORIAS> CATEGORIAS { get; set; }
         public DbSet<PRODUCTOS> PRODUCTOS { get; set; }
         public DbSet<VENTAS> VENTAS { get; set; }
         public DbSet<DETALLE_VENTAS> DETALLE_VENTAS { get; set; }
-        public DbSet<LOGIN> LOGIN { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.HasDefaultSchema("QUICKMARKET_USER");
-
-            modelBuilder.Entity<EMPLEADOS>().ToTable("EMPLEADOS");
+            modelBuilder.Entity<USUARIOS>().ToTable("USUARIOS");
             modelBuilder.Entity<CLIENTES>().ToTable("CLIENTES");
             modelBuilder.Entity<CATEGORIAS>().ToTable("CATEGORIAS");
             modelBuilder.Entity<PRODUCTOS>().ToTable("PRODUCTOS");
             modelBuilder.Entity<VENTAS>().ToTable("VENTAS");
             modelBuilder.Entity<DETALLE_VENTAS>().ToTable("DETALLE_VENTAS");
-            modelBuilder.Entity<LOGIN>().ToTable("LOGIN");
 
-            modelBuilder.Entity<EMPLEADOS>().HasKey(x => x.ID_EMPLEADO);
-            modelBuilder.Entity<CLIENTES>().HasKey(x => x.ID_CLIENTE);
-            modelBuilder.Entity<CATEGORIAS>().HasKey(x => x.ID_CATEGORIA);
-            modelBuilder.Entity<PRODUCTOS>().HasKey(x => x.ID_PRODUCTO);
-            modelBuilder.Entity<VENTAS>().HasKey(x => x.ID_VENTA);
-            modelBuilder.Entity<DETALLE_VENTAS>().HasKey(x => x.ID_DETALLE);
-            modelBuilder.Entity<LOGIN>().HasKey(x => x.ID_LOGIN);
-
-            // EMPLEADOS config + índice único CARNET
-            modelBuilder.Entity<EMPLEADOS>(e =>
+            // ===== USUARIOS =====
+            modelBuilder.Entity<USUARIOS>(e =>
             {
-                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(80)").IsRequired();
-                e.Property(x => x.CARNET).HasColumnType("VARCHAR2(30)").IsRequired();
-                e.HasIndex(x => x.CARNET).IsUnique().HasDatabaseName("UQ_EMPLEADOS_CARNET");
+                e.HasKey(x => x.ID_USUARIO);
+                e.Property(x => x.USERNAME).HasColumnType("VARCHAR2(80)").IsRequired();
+                e.Property(x => x.EMAIL).HasColumnType("VARCHAR2(150)").IsRequired();
+                e.Property(x => x.PASSWORD_HASH).HasColumnType("VARCHAR2(255)").IsRequired();
+                e.Property(x => x.ROL).HasColumnType("VARCHAR2(20)").HasDefaultValue("cliente");
+                e.Property(x => x.ESTADO).HasColumnType("VARCHAR2(20)").HasDefaultValue("activo");
+                e.Property(x => x.RESET_TOKEN).HasColumnType("VARCHAR2(255)");
+                e.Property(x => x.RESET_EXPIRA).HasColumnType("TIMESTAMP");
+                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
+                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
             });
 
-            // Relaciones (FK)
-            modelBuilder.Entity<CLIENTES>()
-                .HasOne<EMPLEADOS>()
-                .WithMany()
-                .HasForeignKey(c => c.ID_EMPLEADO)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            modelBuilder.Entity<PRODUCTOS>()
-                .HasOne<CATEGORIAS>()
-                .WithMany()
-                .HasForeignKey(p => p.ID_CATEGORIA)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            modelBuilder.Entity<VENTAS>()
-                .HasOne<CLIENTES>()
-                .WithMany()
-                .HasForeignKey(v => v.ID_CLIENTE)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            modelBuilder.Entity<VENTAS>()
-                .HasOne<EMPLEADOS>()
-                .WithMany()
-                .HasForeignKey(v => v.ID_EMPLEADO)
-                .OnDelete(DeleteBehavior.SetNull);
-
-            modelBuilder.Entity<DETALLE_VENTAS>()
-                .HasOne<VENTAS>()
-                .WithMany()
-                .HasForeignKey(d => d.ID_VENTA)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<DETALLE_VENTAS>()
-                .HasOne<PRODUCTOS>()
-                .WithMany()
-                .HasForeignKey(d => d.ID_PRODUCTO);
-
-            modelBuilder.Entity<DETALLE_VENTAS>()
-                .HasIndex(d => new { d.ID_VENTA, d.ID_PRODUCTO })
-                .IsUnique();
-
-            // ===== LOGIN (Oracle) =====
-            modelBuilder.Entity<LOGIN>(e =>
+            // ===== CATEGORIAS =====
+            modelBuilder.Entity<CATEGORIAS>(e =>
             {
-                e.HasKey(x => x.ID_LOGIN);
+                e.HasKey(x => x.ID_CATEGORIA);
 
-                e.Property(x => x.ID_LOGIN).HasColumnType("NUMBER");
-                e.Property(x => x.ID_EMPLEADO).HasColumnType("NUMBER").IsRequired();
+                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(120)").IsRequired();
+                e.Property(x => x.DESCRIPCION).HasColumnType("VARCHAR2(500)");
 
-                e.Property(x => x.USERNAME).HasColumnType("VARCHAR2(80)").IsRequired();
-                e.HasIndex(x => x.USERNAME).IsUnique().HasDatabaseName("UQ_LOGIN_USERNAME");
-
-                e.Property(x => x.GMAIL).HasColumnType("VARCHAR2(150)").IsRequired();
-                e.HasIndex(x => x.GMAIL).IsUnique().HasDatabaseName("UQ_LOGIN_EMAIL");
-
-                e.Property(x => x.PASSWORD_HASH).HasColumnType("VARCHAR2(255)").IsRequired();
-
-                e.Property(x => x.RESET_TOKEN).HasColumnType("VARCHAR2(5)");
-                e.Property(x => x.RESET_TOKEN_EXP).HasColumnType("TIMESTAMP");
-
-                e.Property(x => x.ESTADO).HasColumnType("VARCHAR2(20)").HasDefaultValue("activo");
-
-                e.Property(x => x.CREADO_EN)
-                    .HasColumnType("TIMESTAMP")
-                    .HasDefaultValueSql("SYSTIMESTAMP");
-
+                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
                 e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
 
-                // FK explícita a EMPLEADOS
-                e.HasOne<EMPLEADOS>()
+                // Índice único case-insensitive UPPER(NOMBRE) se crea por SQL (Oracle) fuera de EF.
+            });
+
+            // ===== PRODUCTOS =====
+            modelBuilder.Entity<PRODUCTOS>(e =>
+            {
+                e.HasKey(x => x.ID_PRODUCTO);
+
+                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(150)").IsRequired();
+                e.Property(x => x.DESCRIPCION).HasColumnType("VARCHAR2(1000)").IsRequired();
+
+                // Precio/base y stock
+                e.Property(x => x.PRECIO_UNITARIO).HasColumnType("NUMBER(18,2)").IsRequired();
+                e.Property(x => x.STOCK).HasColumnType("NUMBER(18,3)").HasDefaultValue(0);
+
+                // FK categoría (opcional)
+                e.Property(x => x.ID_CATEGORIA).HasColumnType("NUMBER");
+
+                // Calculados por la BD (triggers/paquete) -> EF no los setea
+                e.Property(x => x.IVA_UNITARIO)
+                 .HasColumnType("NUMBER(18,2)")
+                 .ValueGeneratedOnAddOrUpdate();
+
+                e.Property(x => x.PRECIO_CON_IVA)
+                 .HasColumnType("NUMBER(18,2)")
+                 .ValueGeneratedOnAddOrUpdate();
+
+                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
+                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+
+                e.HasOne<CATEGORIAS>()
                  .WithMany()
-                 .HasForeignKey(x => x.ID_EMPLEADO)
+                 .HasForeignKey(p => p.ID_CATEGORIA)
+                 .OnDelete(DeleteBehavior.SetNull);
+
+                // Sugerencia: índice único case-insensitive por (ID_CATEGORIA, UPPER(NOMBRE)) crear vía SQL.
+                // e.HasIndex(p => new { p.ID_CATEGORIA, p.NOMBRE }).IsUnique().HasDatabaseName("UQ_PROD_CAT_NOMBRE"); // (no CI)
+            });
+
+            // ===== CLIENTES (1:1 con USUARIOS) =====
+            modelBuilder.Entity<CLIENTES>(e =>
+            {
+                e.HasKey(x => x.ID_CLIENTE);
+                e.Property(x => x.ID_USUARIO).HasColumnType("NUMBER");
+                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(150)").IsRequired();
+                e.Property(x => x.EMAIL).HasColumnType("VARCHAR2(150)");
+                e.Property(x => x.TELEFONO).HasColumnType("VARCHAR2(30)");
+                e.Property(x => x.DIRECCION).HasColumnType("VARCHAR2(200)");
+                e.Property(x => x.DEPARTAMENTO).HasColumnType("VARCHAR2(80)");
+                e.Property(x => x.MUNICIPIO).HasColumnType("VARCHAR2(80)");
+                e.Property(x => x.REFERENCIA).HasColumnType("VARCHAR2(200)");
+                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
+                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+
+                e.HasIndex(x => x.ID_USUARIO).IsUnique().HasDatabaseName("UQ_CLIENTES_USUARIO");
+
+                e.HasOne<USUARIOS>()
+                 .WithOne()
+                 .HasForeignKey<CLIENTES>(c => c.ID_USUARIO)
+                 .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            // ===== VENTAS =====
+            modelBuilder.Entity<VENTAS>(e =>
+            {
+                e.HasKey(x => x.ID_VENTA);
+                e.Property(x => x.FECHA).HasColumnType("TIMESTAMP").IsRequired();
+                e.Property(x => x.ID_CLIENTE).HasColumnType("NUMBER");
+
+                e.Property(x => x.TOTAL_BRUTO).HasColumnType("NUMBER(18,2)").HasDefaultValue(0);
+                e.Property(x => x.TOTAL_IMPUESTOS).HasColumnType("NUMBER(18,2)").HasDefaultValue(0);
+                e.Property(x => x.TOTAL_NETO).HasColumnType("NUMBER(18,2)").HasDefaultValue(0);
+
+                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
+                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+
+                e.HasOne<CLIENTES>()
+                 .WithMany()
+                 .HasForeignKey(v => v.ID_CLIENTE)
+                 .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            // ===== DETALLE_VENTAS =====
+            modelBuilder.Entity<DETALLE_VENTAS>(e =>
+            {
+                e.HasKey(x => x.ID_DETALLE);
+
+                e.Property(x => x.ID_VENTA).HasColumnType("NUMBER").IsRequired();
+                e.Property(x => x.ID_PRODUCTO).HasColumnType("NUMBER").IsRequired();
+
+                e.Property(x => x.CANTIDAD).HasColumnType("NUMBER(18,3)").IsRequired();
+                e.Property(x => x.PRECIO_UNITARIO).HasColumnType("NUMBER(18,2)").IsRequired();
+
+                // SUBTOTAL lo calcula la BD
+                e.Property(x => x.SUBTOTAL)
+                 .HasColumnType("NUMBER(18,2)")
+                 .ValueGeneratedOnAddOrUpdate();
+
+                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
+                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+
+                e.HasOne<VENTAS>()
+                 .WithMany()
+                 .HasForeignKey(d => d.ID_VENTA)
                  .OnDelete(DeleteBehavior.Cascade);
+
+                e.HasOne<PRODUCTOS>()
+                 .WithMany()
+                 .HasForeignKey(d => d.ID_PRODUCTO);
+
+                e.HasIndex(d => new { d.ID_VENTA, d.ID_PRODUCTO }).IsUnique();
             });
         }
 
-        // Normalización blindada (por si alguien persiste fuera de los controladores)
+        // Normaliza cadenas clave antes de guardar
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            NormalizeLoginStrings();
+            NormalizeStrings();
             return base.SaveChangesAsync(cancellationToken);
         }
 
         public override int SaveChanges()
         {
-            NormalizeLoginStrings();
+            NormalizeStrings();
             return base.SaveChanges();
         }
 
-        private void NormalizeLoginStrings()
+        private void NormalizeStrings()
         {
-            foreach (var entry in ChangeTracker.Entries<LOGIN>())
+            foreach (var e in ChangeTracker.Entries<USUARIOS>())
             {
-                if (entry.State is EntityState.Added or EntityState.Modified)
+                if (e.State is EntityState.Added or EntityState.Modified)
                 {
-                    if (!string.IsNullOrWhiteSpace(entry.Entity.USERNAME))
-                        entry.Entity.USERNAME = entry.Entity.USERNAME.Trim().ToUpperInvariant();
-                    if (!string.IsNullOrWhiteSpace(entry.Entity.GMAIL))
-                        entry.Entity.GMAIL = entry.Entity.GMAIL.Trim().ToUpperInvariant();
+                    if (!string.IsNullOrWhiteSpace(e.Entity.USERNAME))
+                        e.Entity.USERNAME = e.Entity.USERNAME.Trim().ToUpperInvariant();
+                    if (!string.IsNullOrWhiteSpace(e.Entity.EMAIL))
+                        e.Entity.EMAIL = e.Entity.EMAIL.Trim().ToUpperInvariant();
+                }
+            }
+
+            foreach (var e in ChangeTracker.Entries<CATEGORIAS>())
+            {
+                if (e.State is EntityState.Added or EntityState.Modified)
+                {
+                    if (!string.IsNullOrWhiteSpace(e.Entity.NOMBRE))
+                        e.Entity.NOMBRE = e.Entity.NOMBRE.Trim().ToUpperInvariant();
+                    if (!string.IsNullOrWhiteSpace(e.Entity.DESCRIPCION))
+                        e.Entity.DESCRIPCION = e.Entity.DESCRIPCION.Trim();
+                }
+            }
+
+            foreach (var e in ChangeTracker.Entries<PRODUCTOS>())
+            {
+                if (e.State is EntityState.Added or EntityState.Modified)
+                {
+                    if (!string.IsNullOrWhiteSpace(e.Entity.NOMBRE))
+                        e.Entity.NOMBRE = e.Entity.NOMBRE.Trim().ToUpperInvariant();
+                    if (!string.IsNullOrWhiteSpace(e.Entity.DESCRIPCION))
+                        e.Entity.DESCRIPCION = e.Entity.DESCRIPCION.Trim();
                 }
             }
         }

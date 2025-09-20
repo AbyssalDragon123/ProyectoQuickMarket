@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj": {}
+    "C:\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj": {
+    "C:\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
+        "projectUniqueName": "C:\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
         "projectName": "QuickMarket.Api",
-        "projectPath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
+        "projectPath": "C:\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\proyecto\\ProyectoQuickMarket\\QuickMarket.Api\\obj\\",
+        "outputPath": "C:\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -71,10 +71,6 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.7, )"
-            },
-            "MimeKit": {
-              "target": "Package",
-              "version": "[4.13.0, )"
             },
             "Oracle.EntityFrameworkCore": {
               "target": "Package",

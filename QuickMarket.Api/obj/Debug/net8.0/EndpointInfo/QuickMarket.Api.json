@@ -177,35 +177,36 @@
         "tags": [
           "Categorias"
         ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CATEGORIAS"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CATEGORIAS"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CATEGORIAS"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -217,41 +218,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CATEGORIAS"
+                "$ref": "#/components/schemas/CategoriaCreateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CATEGORIAS"
+                "$ref": "#/components/schemas/CategoriaCreateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CATEGORIAS"
+                "$ref": "#/components/schemas/CategoriaCreateDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CATEGORIAS"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CATEGORIAS"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CATEGORIAS"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -278,17 +262,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CATEGORIAS"
+                  "$ref": "#/components/schemas/CategoriaDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CATEGORIAS"
+                  "$ref": "#/components/schemas/CategoriaDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CATEGORIAS"
+                  "$ref": "#/components/schemas/CategoriaDto"
                 }
               }
             }
@@ -314,17 +298,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CATEGORIAS"
+                "$ref": "#/components/schemas/CategoriaUpdateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CATEGORIAS"
+                "$ref": "#/components/schemas/CategoriaUpdateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CATEGORIAS"
+                "$ref": "#/components/schemas/CategoriaUpdateDto"
               }
             }
           }
@@ -357,105 +341,10 @@
         }
       }
     },
-    "/api/Clientes": {
+    "/api/Clientes/me": {
       "get": {
         "tags": [
           "Clientes"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClienteDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClienteDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClienteDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Clientes"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClienteCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClienteCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClienteCreateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClienteDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClienteDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClienteDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Clientes/{id}": {
-      "get": {
-        "tags": [
-          "Clientes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -484,57 +373,25 @@
         "tags": [
           "Clientes"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClienteUpdateDto"
+                "$ref": "#/components/schemas/ClienteUpsertDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClienteUpdateDto"
+                "$ref": "#/components/schemas/ClienteUpsertDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ClienteUpdateDto"
+                "$ref": "#/components/schemas/ClienteUpsertDto"
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Clientes"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -748,225 +605,65 @@
         }
       }
     },
-    "/api/Empleados": {
-      "get": {
-        "tags": [
-          "Empleados"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EmpleadoDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EmpleadoDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/EmpleadoDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Empleados"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmpleadoCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmpleadoCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmpleadoCreateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmpleadoDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmpleadoDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmpleadoDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Empleados/{id}": {
-      "get": {
-        "tags": [
-          "Empleados"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmpleadoDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmpleadoDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmpleadoDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Empleados"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmpleadoUpdateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmpleadoUpdateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmpleadoUpdateDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Empleados"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Productos": {
       "get": {
         "tags": [
           "Productos"
         ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "idCategoria",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "min",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "max",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PRODUCTOS"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PRODUCTOS"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PRODUCTOS"
-                  }
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       },
@@ -978,41 +675,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PRODUCTOS"
+                "$ref": "#/components/schemas/ProductoCreateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PRODUCTOS"
+                "$ref": "#/components/schemas/ProductoCreateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PRODUCTOS"
+                "$ref": "#/components/schemas/ProductoCreateDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/PRODUCTOS"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PRODUCTOS"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PRODUCTOS"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -1039,17 +719,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/PRODUCTOS"
+                  "$ref": "#/components/schemas/ProductoDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PRODUCTOS"
+                  "$ref": "#/components/schemas/ProductoDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PRODUCTOS"
+                  "$ref": "#/components/schemas/ProductoDto"
                 }
               }
             }
@@ -1075,17 +755,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PRODUCTOS"
+                "$ref": "#/components/schemas/ProductoUpdateDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PRODUCTOS"
+                "$ref": "#/components/schemas/ProductoUpdateDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PRODUCTOS"
+                "$ref": "#/components/schemas/ProductoUpdateDto"
               }
             }
           }
@@ -1118,43 +798,49 @@
         }
       }
     },
-    "/api/Ventas": {
-      "get": {
+    "/api/Productos/{id}/stock": {
+      "patch": {
         "tags": [
-          "Ventas"
+          "Productos"
         ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VENTAS"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VENTAS"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VENTAS"
-                  }
-                }
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AjusteStockDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AjusteStockDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AjusteStockDto"
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
         }
-      },
+      }
+    },
+    "/api/Ventas": {
       "post": {
         "tags": [
           "Ventas"
@@ -1163,41 +849,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VENTAS"
+                "$ref": "#/components/schemas/CrearOrdenDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/VENTAS"
+                "$ref": "#/components/schemas/CrearOrdenDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/VENTAS"
+                "$ref": "#/components/schemas/CrearOrdenDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/VENTAS"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VENTAS"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/VENTAS"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -1224,64 +893,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/VENTAS"
+                  "$ref": "#/components/schemas/VentaConDetalleDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VENTAS"
+                  "$ref": "#/components/schemas/VentaConDetalleDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VENTAS"
+                  "$ref": "#/components/schemas/VentaConDetalleDto"
                 }
               }
             }
           }
         }
-      },
-      "put": {
-        "tags": [
-          "Ventas"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VENTAS"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VENTAS"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VENTAS"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
+      }
+    },
+    "/api/Ventas/{id}/reenviar-factura": {
+      "post": {
         "tags": [
           "Ventas"
         ],
@@ -1306,10 +937,48 @@
   },
   "components": {
     "schemas": {
-      "CATEGORIAS": {
+      "AjusteStockDto": {
         "type": "object",
         "properties": {
-          "iD_CATEGORIA": {
+          "delta": {
+            "maximum": 999999999,
+            "minimum": -999999999,
+            "type": "number",
+            "format": "double"
+          },
+          "motivo": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoriaCreateDto": {
+        "required": [
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          "descripcion": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CategoriaDto": {
+        "type": "object",
+        "properties": {
+          "idCategoria": {
             "type": "number",
             "format": "double"
           },
@@ -1321,11 +990,11 @@
             "type": "string",
             "nullable": true
           },
-          "creadO_EN": {
+          "creadoEn": {
             "type": "string",
             "format": "date-time"
           },
-          "actualizadO_EN": {
+          "actualizadoEn": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -1333,24 +1002,20 @@
         },
         "additionalProperties": false
       },
-      "ClienteCreateDto": {
+      "CategoriaUpdateDto": {
         "required": [
           "nombre"
         ],
         "type": "object",
         "properties": {
-          "idEmpleado": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
           "nombre": {
-            "maxLength": 150,
+            "maxLength": 120,
             "minLength": 2,
             "type": "string"
           },
-          "telefono": {
-            "pattern": "^[0-9\\s\\-\\+\\(\\)]{7,20}$",
+          "descripcion": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -1360,11 +1025,11 @@
       "ClienteDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "idCliente": {
             "type": "number",
             "format": "double"
           },
-          "idEmpleado": {
+          "idUsuario": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -1373,31 +1038,91 @@
             "type": "string",
             "nullable": true
           },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
           "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "departamento": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipio": {
+            "type": "string",
+            "nullable": true
+          },
+          "referencia": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "ClienteUpdateDto": {
+      "ClienteUpsertDto": {
         "required": [
           "nombre"
         ],
         "type": "object",
         "properties": {
-          "idEmpleado": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
           "nombre": {
             "maxLength": 150,
             "minLength": 2,
             "type": "string"
           },
+          "email": {
+            "maxLength": 150,
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          },
           "telefono": {
             "pattern": "^[0-9\\s\\-\\+\\(\\)]{7,20}$",
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "maxLength": 200,
+            "type": "string",
+            "nullable": true
+          },
+          "departamento": {
+            "maxLength": 80,
+            "type": "string",
+            "nullable": true
+          },
+          "municipio": {
+            "maxLength": 80,
+            "type": "string",
+            "nullable": true
+          },
+          "referencia": {
+            "maxLength": 200,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CrearOrdenDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdenItemDto"
+            },
+            "nullable": true
+          },
+          "notas": {
+            "maxLength": 500,
             "type": "string",
             "nullable": true
           }
@@ -1444,73 +1169,6 @@
         },
         "additionalProperties": false
       },
-      "EmpleadoCreateDto": {
-        "required": [
-          "carnet",
-          "nombre"
-        ],
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "maxLength": 80,
-            "minLength": 2,
-            "type": "string"
-          },
-          "carnet": {
-            "maxLength": 30,
-            "minLength": 3,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "EmpleadoDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "format": "double"
-          },
-          "nombre": {
-            "type": "string",
-            "nullable": true
-          },
-          "carnet": {
-            "type": "string",
-            "nullable": true
-          },
-          "creadoEn": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "actualizadoEn": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "EmpleadoUpdateDto": {
-        "required": [
-          "carnet",
-          "nombre"
-        ],
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "maxLength": 80,
-            "minLength": 2,
-            "type": "string"
-          },
-          "carnet": {
-            "maxLength": 30,
-            "minLength": 3,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -1525,10 +1183,67 @@
         },
         "additionalProperties": false
       },
-      "PRODUCTOS": {
+      "OrdenItemDto": {
         "type": "object",
         "properties": {
-          "iD_PRODUCTO": {
+          "idProducto": {
+            "minimum": 1,
+            "type": "number",
+            "format": "double"
+          },
+          "cantidad": {
+            "maximum": 999999999,
+            "minimum": 0.001,
+            "type": "number",
+            "format": "double"
+          },
+          "precioUnitario": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductoCreateDto": {
+        "required": [
+          "descripcion",
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string"
+          },
+          "descripcion": {
+            "maxLength": 1000,
+            "minLength": 2,
+            "type": "string"
+          },
+          "precioUnitario": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "stock": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "idCategoria": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductoDto": {
+        "type": "object",
+        "properties": {
+          "idProducto": {
             "type": "number",
             "format": "double"
           },
@@ -1540,7 +1255,7 @@
             "type": "string",
             "nullable": true
           },
-          "preciO_UNITARIO": {
+          "precioUnitario": {
             "type": "number",
             "format": "double"
           },
@@ -1548,28 +1263,54 @@
             "type": "number",
             "format": "double"
           },
-          "iD_CATEGORIA": {
+          "idCategoria": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "ivA_UNITARIO": {
+          "ivaUnitario": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "preciO_CON_IVA": {
+          "precioConIva": {
             "type": "number",
             "format": "double",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductoUpdateDto": {
+        "required": [
+          "descripcion",
+          "nombre"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "maxLength": 150,
+            "minLength": 2,
+            "type": "string"
           },
-          "creadO_EN": {
-            "type": "string",
-            "format": "date-time"
+          "descripcion": {
+            "maxLength": 1000,
+            "minLength": 2,
+            "type": "string"
           },
-          "actualizadO_EN": {
-            "type": "string",
-            "format": "date-time",
+          "precioUnitario": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "stock": {
+            "minimum": 0,
+            "type": "number",
+            "format": "double"
+          },
+          "idCategoria": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           }
         },
@@ -1586,13 +1327,9 @@
             "type": "string",
             "nullable": true
           },
-          "gmail": {
+          "email": {
             "type": "string",
             "nullable": true
-          },
-          "idEmpleado": {
-            "type": "number",
-            "format": "double"
           }
         },
         "additionalProperties": false
@@ -1600,7 +1337,7 @@
       "RequestResetDto": {
         "type": "object",
         "properties": {
-          "gmail": {
+          "email": {
             "type": "string",
             "nullable": true
           }
@@ -1610,7 +1347,7 @@
       "ResetPasswordDto": {
         "type": "object",
         "properties": {
-          "gmail": {
+          "email": {
             "type": "string",
             "nullable": true
           },
@@ -1625,10 +1362,52 @@
         },
         "additionalProperties": false
       },
-      "VENTAS": {
+      "VentaConDetalleDto": {
         "type": "object",
         "properties": {
-          "iD_VENTA": {
+          "venta": {
+            "$ref": "#/components/schemas/VentaResumenDto"
+          },
+          "detalle": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VentaItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VentaItemDto": {
+        "type": "object",
+        "properties": {
+          "idDetalle": {
+            "type": "number",
+            "format": "double"
+          },
+          "idProducto": {
+            "type": "number",
+            "format": "double"
+          },
+          "cantidad": {
+            "type": "number",
+            "format": "double"
+          },
+          "precioUnitario": {
+            "type": "number",
+            "format": "double"
+          },
+          "importe": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VentaResumenDto": {
+        "type": "object",
+        "properties": {
+          "idVenta": {
             "type": "number",
             "format": "double"
           },
@@ -1636,36 +1415,22 @@
             "type": "string",
             "format": "date-time"
           },
-          "iD_CLIENTE": {
+          "idCliente": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "totaL_BRUTO": {
+          "totalBruto": {
             "type": "number",
             "format": "double"
           },
-          "totaL_IMPUESTOS": {
+          "totalImpuestos": {
             "type": "number",
             "format": "double"
           },
-          "totaL_NETO": {
+          "totalNeto": {
             "type": "number",
             "format": "double"
-          },
-          "iD_EMPLEADO": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "creadO_EN": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "actualizadO_EN": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1673,7 +1438,7 @@
       "VerifyCodeDto": {
         "type": "object",
         "properties": {
-          "gmail": {
+          "email": {
             "type": "string",
             "nullable": true
           },

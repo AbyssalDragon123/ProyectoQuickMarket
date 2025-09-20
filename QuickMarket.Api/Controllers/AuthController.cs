@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿// Controllers/AuthController.cs
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +9,6 @@ using QuickMarket.Api.Dtos;
 using QuickMarket.Api.Models;
 using QuickMarket.Api.Services;
 using QuickMarket.Api.Utils;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace QuickMarket.Api.Controllers
 {
@@ -18,95 +19,84 @@ namespace QuickMarket.Api.Controllers
         private readonly QuickMarketContext _db;
         private readonly IJwtTokenService _jwt;
         private readonly IEmailService _email;
+        private readonly ILogger<AuthController> _log;
 
-        public AuthController(QuickMarketContext db, IJwtTokenService jwt, IEmailService email)
+        private const int ResetCodeMinutes = 5;      // ⬅️ antes era 1
+        private const int ClockSkewSeconds = 10;     // ⬅️ tolerancia mínima
+
+        public AuthController(QuickMarketContext db, IJwtTokenService jwt, IEmailService email, ILogger<AuthController> log)
         {
             _db = db;
             _jwt = jwt;
             _email = email;
+            _log = log;
         }
 
-        // Helpers de normalización (case-insensitive consistente)
         private static string NormUsername(string s) => s.Trim().ToUpperInvariant();
-        private static string NormGmail(string s) => s.Trim().ToUpperInvariant();
+        private static string NormEmail(string s) => s.Trim().ToUpperInvariant();
 
         // POST: api/auth/register
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var username = NormUsername(dto.Username);
-            var gmail = NormGmail(dto.Gmail);
+            var email = NormEmail(dto.Email);
 
-            if (!gmail.EndsWith("@GMAIL.COM", StringComparison.Ordinal))
-                return BadRequest("Solo se permiten cuentas @gmail.com.");
+            // Si quieres limitar temporalmente a Gmail, deja esto:
+            if (!email.EndsWith("@GMAIL.COM", StringComparison.Ordinal))
+                return BadRequest("Por ahora solo se permiten cuentas @gmail.com.");
 
-            // --- Evitar AnyAsync con Oracle: usar SELECT 1 + FirstOrDefaultAsync
-            var userNameExists = await _db.LOGIN.AsNoTracking()
+            var userNameExists = await _db.USUARIOS.AsNoTracking()
                 .Where(x => x.USERNAME == username)
-                .Select(_ => 1)
-                .FirstOrDefaultAsync() == 1;
+                .Select(_ => 1).FirstOrDefaultAsync() == 1;
 
-            if (userNameExists)
-                return Conflict("El username ya existe.");
+            if (userNameExists) return Conflict("El username ya existe.");
 
-            var gmailExists = await _db.LOGIN.AsNoTracking()
-                .Where(x => x.GMAIL == gmail)
-                .Select(_ => 1)
-                .FirstOrDefaultAsync() == 1;
+            var emailExists = await _db.USUARIOS.AsNoTracking()
+                .Where(x => x.EMAIL == email)
+                .Select(_ => 1).FirstOrDefaultAsync() == 1;
 
-            if (gmailExists)
-                return Conflict("El gmail ya está en uso.");
+            if (emailExists) return Conflict("El email ya está en uso.");
 
-            var empleadoExiste = await _db.EMPLEADOS.AsNoTracking()
-                .Where(e => e.ID_EMPLEADO == dto.IdEmpleado)
-                .Select(_ => 1)
-                .FirstOrDefaultAsync() == 1;
-
-            if (!empleadoExiste)
-                return BadRequest("El empleado no existe.");
-            // --- Fin reemplazos
-
-            var entity = new LOGIN
+            var entity = new USUARIOS
             {
                 USERNAME = username,
-                GMAIL = gmail,
+                EMAIL = email,
                 PASSWORD_HASH = SecurityUtils.HashPassword(dto.Password),
-                ID_EMPLEADO = dto.IdEmpleado,
+                ROL = "cliente",
                 ESTADO = "activo",
                 CREADO_EN = DateTime.UtcNow
             };
 
-            _db.LOGIN.Add(entity);
+            _db.USUARIOS.Add(entity);
             await _db.SaveChangesAsync();
 
-            return Created($"api/auth/users/{entity.ID_LOGIN}", new
+            return Created($"api/auth/users/{entity.ID_USUARIO}", new
             {
-                entity.ID_LOGIN,
+                entity.ID_USUARIO,
                 entity.USERNAME,
-                gmail = entity.GMAIL,
-                entity.ID_EMPLEADO
+                email = entity.EMAIL,
+                entity.ROL
             });
         }
-
 
         // POST: api/auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
             var username = NormUsername(dto.Username);
-
-            var user = await _db.LOGIN.FirstOrDefaultAsync(x => x.USERNAME == username && x.ESTADO == "activo");
+            var user = await _db.USUARIOS.FirstOrDefaultAsync(x => x.USERNAME == username && x.ESTADO == "activo");
 
             if (user is null || !SecurityUtils.VerifyPassword(dto.Password, user.PASSWORD_HASH))
                 return Unauthorized("Credenciales inválidas.");
 
-            var token = _jwt.CreateToken(user.USERNAME, user.GMAIL, user.ID_LOGIN.ToString(), "empleado");
+            var token = _jwt.CreateToken(user.USERNAME, user.EMAIL, user.ID_USUARIO.ToString(), user.ROL);
 
             return Ok(new
             {
                 message = "Login OK",
                 token,
-                user = new { user.ID_LOGIN, user.USERNAME, gmail = user.GMAIL, user.ID_EMPLEADO }
+                user = new { user.ID_USUARIO, user.USERNAME, email = user.EMAIL, user.ROL }
             });
         }
 
@@ -120,76 +110,81 @@ namespace QuickMarket.Api.Controllers
                 return Unauthorized("Token sin nombre de usuario.");
 
             var norm = NormUsername(username);
-            var user = await _db.LOGIN.AsNoTracking().FirstOrDefaultAsync(x => x.USERNAME == norm);
+            var user = await _db.USUARIOS.AsNoTracking().FirstOrDefaultAsync(x => x.USERNAME == norm);
             if (user is null) return NotFound();
 
             return Ok(new
             {
-                user.ID_LOGIN,
+                user.ID_USUARIO,
                 user.USERNAME,
-                gmail = user.GMAIL,
-                user.ID_EMPLEADO,
+                email = user.EMAIL,
+                user.ROL,
                 user.ESTADO,
                 user.CREADO_EN,
                 user.ACTUALIZADO_EN
             });
         }
 
-        // POST: api/auth/request-reset  (envía código 5 dígitos que expira en 10 minutos)
+        // POST: api/auth/request-reset  (código 5 dígitos, expira en 5 minutos)
         [HttpPost("request-reset")]
         public async Task<IActionResult> RequestReset(RequestResetDto dto)
         {
-            var gmail = NormGmail(dto.Gmail);
+            var email = NormEmail(dto.Email);
 
-            // Privacidad: no revelar existencia
-            var user = await _db.LOGIN.FirstOrDefaultAsync(x => x.GMAIL == gmail && x.ESTADO == "activo");
+            // No revelar existencia
+            var user = await _db.USUARIOS.FirstOrDefaultAsync(x => x.EMAIL == email && x.ESTADO == "activo");
             if (user is null)
             {
                 await Task.Delay(100);
-                return Ok(new { message = "Si la cuenta existe, se enviará un código al correo." });
+                return Ok(new { message = "Se enviará un código si la cuenta existe." });
             }
 
             var code = SecurityUtils.Generate5DigitCode();
-            user.RESET_TOKEN = code;
-            user.RESET_TOKEN_EXP = DateTime.UtcNow.AddMinutes(10);
-            user.ACTUALIZADO_EN = DateTime.UtcNow;
 
+            user.RESET_TOKEN = code;
+            user.RESET_EXPIRA = DateTime.UtcNow.AddMinutes(ResetCodeMinutes);
+            user.ACTUALIZADO_EN = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
             var html = $@"
                 <h2>Recuperación de contraseña</h2>
                 <p>Tu código de verificación es:</p>
                 <h1 style=""letter-spacing:3px"">{code}</h1>
-                <p>Este código expira en <strong>10 minutos</strong>.</p>
+                <p>Este código expira en <strong>{ResetCodeMinutes} minutos</strong>.</p>
+                <p>Si solicitas otro código, este quedará invalidado.</p>
                 <p>Si no solicitaste este código, ignora este mensaje.</p>";
 
             try
             {
-                await _email.SendAsync(user.GMAIL, "Código de verificación - QuickMarket", html);
+                await _email.SendAsync(user.EMAIL, "Código de verificación - QuickMarket", html);
             }
-            catch
+            catch (Exception ex)
             {
+                _log.LogError(ex, "Fallo al enviar correo de reset, invalidando código.");
                 user.RESET_TOKEN = null;
-                user.RESET_TOKEN_EXP = null;
+                user.RESET_EXPIRA = null;
                 user.ACTUALIZADO_EN = DateTime.UtcNow;
                 await _db.SaveChangesAsync();
                 return StatusCode(503, "No se pudo enviar el correo. Intenta nuevamente en unos minutos.");
             }
 
-            return Ok(new { message = "Si la cuenta existe, se enviará un código al correo." });
+            return Ok(new { message = "Código enviado si la cuenta existe." });
         }
 
         // POST: api/auth/verify-code
         [HttpPost("verify-code")]
         public async Task<IActionResult> VerifyCode(VerifyCodeDto dto)
         {
-            var gmail = NormGmail(dto.Gmail);
-            var user = await _db.LOGIN.FirstOrDefaultAsync(x => x.GMAIL == gmail);
+            var email = NormEmail(dto.Email);
+            var user = await _db.USUARIOS.FirstOrDefaultAsync(x => x.EMAIL == email);
 
-            if (user is null || user.RESET_TOKEN is null || user.RESET_TOKEN_EXP is null)
-                return BadRequest("Código inválido o no solicitado.");
+            if (user is null || user.RESET_TOKEN is null || user.RESET_EXPIRA is null)
+                return BadRequest("No hay un código activo. Solicítalo de nuevo.");
 
-            if (user.RESET_TOKEN_EXP <= DateTimeOffset.UtcNow)
+            // tolerancia de reloj
+            var now = DateTime.UtcNow.AddSeconds(-ClockSkewSeconds);
+
+            if (user.RESET_EXPIRA <= now)
                 return BadRequest("El código ha expirado.");
 
             if (!string.Equals(user.RESET_TOKEN, dto.Code, StringComparison.Ordinal))
@@ -202,27 +197,42 @@ namespace QuickMarket.Api.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto dto)
         {
-            var gmail = NormGmail(dto.Gmail);
-            var user = await _db.LOGIN.FirstOrDefaultAsync(x => x.GMAIL == gmail);
-            if (user is null)
-                return BadRequest("Código inválido o no solicitado.");
+            var email = NormEmail(dto.Email);
+            var user = await _db.USUARIOS.FirstOrDefaultAsync(x => x.EMAIL == email);
+            if (user is null || user.RESET_TOKEN is null || user.RESET_EXPIRA is null)
+                return BadRequest("No hay un código activo. Solicítalo de nuevo.");
 
-            if (user.RESET_TOKEN is null || user.RESET_TOKEN_EXP is null)
-                return BadRequest("Código inválido o no solicitado.");
+            var now = DateTime.UtcNow.AddSeconds(-ClockSkewSeconds);
 
-            if (user.RESET_TOKEN_EXP <= DateTimeOffset.UtcNow)
+            if (user.RESET_EXPIRA <= now)
                 return BadRequest("El código ha expirado.");
 
             if (!string.Equals(user.RESET_TOKEN, dto.Code, StringComparison.Ordinal))
                 return BadRequest("Código inválido.");
 
-            // Política de contraseña: aquí podrías validar fuerza adicional con Regex
             user.PASSWORD_HASH = SecurityUtils.HashPassword(dto.NewPassword);
             user.RESET_TOKEN = null;
-            user.RESET_TOKEN_EXP = null;
+            user.RESET_EXPIRA = null;
             user.ACTUALIZADO_EN = DateTime.UtcNow;
 
             await _db.SaveChangesAsync();
+
+            // Aviso por email (no bloquear flujo si falla)
+            try
+            {
+                await _email.SendAsync(
+                    user.EMAIL,
+                    "Tu contraseña fue cambiada - QuickMarket",
+                    $@"<p>Hola {user.USERNAME},</p>
+                       <p>Tu contraseña se cambió correctamente el {DateTime.UtcNow:yyyy-MM-dd HH:mm} UTC.</p>
+                       <p>Si no fuiste tú, restablece tu clave y contáctanos.</p>"
+                );
+            }
+            catch (Exception ex)
+            {
+                _log.LogWarning(ex, "No se pudo enviar email de confirmación de cambio de contraseña.");
+            }
+
             return Ok(new { message = "Contraseña actualizada." });
         }
     }

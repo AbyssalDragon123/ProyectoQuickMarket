@@ -11,7 +11,6 @@ namespace QuickMarket.Api.Models
         public decimal TOTAL_BRUTO { get; set; }
         public decimal TOTAL_IMPUESTOS { get; set; }
         public decimal TOTAL_NETO { get; set; }
-        public decimal? ID_EMPLEADO { get; set; }
         public DateTime CREADO_EN { get; set; }
         public DateTime? ACTUALIZADO_EN { get; set; }
     }
