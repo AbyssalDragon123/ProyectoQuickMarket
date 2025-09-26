@@ -1,121 +1,5 @@
 [
   {
-    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
-    "Method": "Login",
-    "RelativePath": "api/Auth/login",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.LoginDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
-    "Method": "Me",
-    "RelativePath": "api/Auth/me",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
-    "Method": "Register",
-    "RelativePath": "api/Auth/register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.RegisterDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
-    "Method": "RequestReset",
-    "RelativePath": "api/Auth/request-reset",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.RequestResetDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
-    "Method": "ResetPassword",
-    "RelativePath": "api/Auth/reset-password",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.ResetPasswordDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.AuthController",
-    "Method": "VerifyCode",
-    "RelativePath": "api/Auth/verify-code",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.VerifyCodeDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.CategoriasController",
-    "Method": "GetAll",
-    "RelativePath": "api/Categorias",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "q",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "page",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "QuickMarket.Api.Controllers.CategoriasController",
     "Method": "Create",
     "RelativePath": "api/Categorias",
@@ -125,11 +9,57 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.CategoriaCreateDto",
+        "Type": "QuickMarket.Api.Dtos.CreateCategoriaDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.CategoriaDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.CategoriasController",
+    "Method": "List",
+    "RelativePath": "api/Categorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.PagedResult\u00601[[QuickMarket.Api.Dtos.CategoriaDto, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.CategoriasController",
@@ -141,7 +71,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -167,16 +97,26 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
         "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.CategoriaUpdateDto",
+        "Type": "QuickMarket.Api.Dtos.UpdateCategoriaDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.CategoriaDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.CategoriasController",
@@ -188,7 +128,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -196,12 +136,18 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "GetMine",
-    "RelativePath": "api/Clientes/me",
-    "HttpMethod": "GET",
+    "Method": "Create",
+    "RelativePath": "api/Clientes",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.CreateClienteDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "QuickMarket.Api.Dtos.ClienteDto",
@@ -216,19 +162,138 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
-    "Method": "UpsertMine",
-    "RelativePath": "api/Clientes/me",
+    "Method": "List",
+    "RelativePath": "api/Clientes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.PagedResult\u00601[[QuickMarket.Api.Dtos.ClienteDto, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
+    "Method": "GetById",
+    "RelativePath": "api/Clientes/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.ClienteDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
+    "Method": "Update",
+    "RelativePath": "api/Clientes/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
         "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.ClienteUpsertDto",
+        "Type": "QuickMarket.Api.Dtos.UpdateClienteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.ClienteDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
+    "Method": "Delete",
+    "RelativePath": "api/Clientes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.ClientesController",
+    "Method": "GetByUsuario",
+    "RelativePath": "api/Clientes/by-user/{idUsuario}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.ClienteDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.DebugMailController",
@@ -247,156 +312,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "QuickMarket.Api.Controllers.Detalle_VentasController",
-    "Method": "GetDETALLE_VENTAS",
-    "RelativePath": "api/Detalle_Ventas",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[QuickMarket.Api.Models.DETALLE_VENTAS, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.Detalle_VentasController",
-    "Method": "PostDETALLE_VENTAS",
-    "RelativePath": "api/Detalle_Ventas",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dETALLE_VENTAS",
-        "Type": "QuickMarket.Api.Models.DETALLE_VENTAS",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "QuickMarket.Api.Models.DETALLE_VENTAS",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.Detalle_VentasController",
-    "Method": "GetDETALLE_VENTAS",
-    "RelativePath": "api/Detalle_Ventas/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Decimal",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "QuickMarket.Api.Models.DETALLE_VENTAS",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.Detalle_VentasController",
-    "Method": "PutDETALLE_VENTAS",
-    "RelativePath": "api/Detalle_Ventas/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Decimal",
-        "IsRequired": true
-      },
-      {
-        "Name": "dETALLE_VENTAS",
-        "Type": "QuickMarket.Api.Models.DETALLE_VENTAS",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.Detalle_VentasController",
-    "Method": "DeleteDETALLE_VENTAS",
-    "RelativePath": "api/Detalle_Ventas/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Decimal",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.ProductosController",
-    "Method": "GetAll",
-    "RelativePath": "api/Productos",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "q",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "idCategoria",
-        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "min",
-        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "max",
-        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "page",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "QuickMarket.Api.Controllers.ProductosController",
     "Method": "Create",
     "RelativePath": "api/Productos",
@@ -406,11 +321,62 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.ProductoCreateDto",
+        "Type": "QuickMarket.Api.Dtos.CreateProductoDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.ProductoDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.ProductosController",
+    "Method": "List",
+    "RelativePath": "api/Productos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoria",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.PagedResult\u00601[[QuickMarket.Api.Dtos.ProductoDto, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ProductosController",
@@ -422,7 +388,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -448,16 +414,26 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
         "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.ProductoUpdateDto",
+        "Type": "QuickMarket.Api.Dtos.UpdateProductoDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.ProductoDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.ProductosController",
@@ -469,43 +445,205 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "QuickMarket.Api.Controllers.ProductosController",
-    "Method": "AjustarStock",
-    "RelativePath": "api/Productos/{id}/stock",
-    "HttpMethod": "PATCH",
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "List",
+    "RelativePath": "api/Usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.PagedResult\u00601[[QuickMarket.Api.Dtos.UserDto, QuickMarket.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "GetById",
+    "RelativePath": "api/Usuarios/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.UserDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "Update",
+    "RelativePath": "api/Usuarios/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
         "Name": "dto",
-        "Type": "QuickMarket.Api.Dtos.AjusteStockDto",
+        "Type": "QuickMarket.Api.Dtos.UpdateUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.UserDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "Delete",
+    "RelativePath": "api/Usuarios/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "QuickMarket.Api.Controllers.VentasController",
-    "Method": "Crear",
-    "RelativePath": "api/Ventas",
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "Login",
+    "RelativePath": "api/Usuarios/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "ResetComplete",
+    "RelativePath": "api/Usuarios/password/reset-complete",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.ResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "ResetRequest",
+    "RelativePath": "api/Usuarios/password/reset-request",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.ResetRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.UsuariosController",
+    "Method": "Register",
+    "RelativePath": "api/Usuarios/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "QuickMarket.Api.Dtos.RegisterUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "QuickMarket.Api.Dtos.UserDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "QuickMarket.Api.Controllers.VentasController",
+    "Method": "CrearVenta",
+    "RelativePath": "api/Ventas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orden",
         "Type": "QuickMarket.Api.Dtos.CrearOrdenDto",
         "IsRequired": true
       }
@@ -514,7 +652,7 @@
   },
   {
     "ContainingType": "QuickMarket.Api.Controllers.VentasController",
-    "Method": "GetById",
+    "Method": "ObtenerVenta",
     "RelativePath": "api/Ventas/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -522,7 +660,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Decimal",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -537,21 +675,5 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "QuickMarket.Api.Controllers.VentasController",
-    "Method": "ReenviarFactura",
-    "RelativePath": "api/Ventas/{id}/reenviar-factura",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Decimal",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   }
 ]

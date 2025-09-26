@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jhqtyNw/U08=",
+  "dgSpecHash": "daNczKobIcI=",
   "success": true,
-  "projectFilePath": "C:\\Proyecto QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Escritorio\\QuickMarket\\ProyectoQuickMarket\\QuickMarket.Api\\QuickMarket.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",

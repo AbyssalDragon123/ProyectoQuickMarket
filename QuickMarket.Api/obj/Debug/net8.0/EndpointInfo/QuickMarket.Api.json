@@ -1,190 +1,63 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "QuickMarket.Api",
-    "version": "1.0"
+    "title": "QuickMarket API",
+    "description": "API para QuickMarket (Oracle + EF Core)",
+    "version": "v1"
   },
   "paths": {
-    "/api/Auth/register": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/login": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/me": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/request-reset": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestResetDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestResetDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestResetDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/verify-code": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyCodeDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyCodeDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/VerifyCodeDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/reset-password": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Categorias": {
+      "post": {
+        "tags": [
+          "Categorias"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoriaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoriaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoriaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDto"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Categorias"
         ],
         "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "page",
             "in": "query",
@@ -202,40 +75,35 @@
               "format": "int32",
               "default": 20
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Categorias"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CategoriaCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CategoriaCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CategoriaCreateDto"
-              }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDtoPagedResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDtoPagedResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDtoPagedResult"
+                }
+              }
+            }
           }
         }
       }
@@ -251,8 +119,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -289,8 +157,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -298,24 +166,41 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriaUpdateDto"
+                "$ref": "#/components/schemas/UpdateCategoriaDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriaUpdateDto"
+                "$ref": "#/components/schemas/UpdateCategoriaDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriaUpdateDto"
+                "$ref": "#/components/schemas/UpdateCategoriaDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoriaDto"
+                }
+              }
+            }
           }
         }
       },
@@ -329,8 +214,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -341,10 +226,123 @@
         }
       }
     },
-    "/api/Clientes/me": {
+    "/api/Clientes": {
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClienteDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClienteDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClienteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Clientes"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDtoPagedResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDtoPagedResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDtoPagedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Clientes/{id}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -373,28 +371,117 @@
         "tags": [
           "Clientes"
         ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClienteUpsertDto"
+                "$ref": "#/components/schemas/UpdateClienteDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClienteUpsertDto"
+                "$ref": "#/components/schemas/UpdateClienteDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ClienteUpsertDto"
+                "$ref": "#/components/schemas/UpdateClienteDto"
               }
             }
           }
         },
         "responses": {
           "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Clientes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Clientes/by-user/{idUsuario}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClienteDto"
+                }
+              }
+            }
           }
         }
       }
@@ -420,62 +507,26 @@
         }
       }
     },
-    "/api/Detalle_Ventas": {
-      "get": {
-        "tags": [
-          "Detalle_Ventas"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DETALLE_VENTAS"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DETALLE_VENTAS"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DETALLE_VENTAS"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/Productos": {
       "post": {
         "tags": [
-          "Detalle_Ventas"
+          "Productos"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DETALLE_VENTAS"
+                "$ref": "#/components/schemas/CreateProductoDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/DETALLE_VENTAS"
+                "$ref": "#/components/schemas/CreateProductoDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/DETALLE_VENTAS"
+                "$ref": "#/components/schemas/CreateProductoDto"
               }
             }
           }
@@ -486,162 +537,28 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DETALLE_VENTAS"
+                  "$ref": "#/components/schemas/ProductoDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DETALLE_VENTAS"
+                  "$ref": "#/components/schemas/ProductoDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DETALLE_VENTAS"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Detalle_Ventas/{id}": {
-      "get": {
-        "tags": [
-          "Detalle_Ventas"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/DETALLE_VENTAS"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DETALLE_VENTAS"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DETALLE_VENTAS"
+                  "$ref": "#/components/schemas/ProductoDto"
                 }
               }
             }
           }
         }
       },
-      "put": {
-        "tags": [
-          "Detalle_Ventas"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DETALLE_VENTAS"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DETALLE_VENTAS"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DETALLE_VENTAS"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Detalle_Ventas"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Productos": {
       "get": {
         "tags": [
           "Productos"
         ],
         "parameters": [
-          {
-            "name": "q",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "idCategoria",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "name": "min",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
-          {
-            "name": "max",
-            "in": "query",
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          },
           {
             "name": "page",
             "in": "query",
@@ -659,40 +576,43 @@
               "format": "int32",
               "default": 20
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Productos"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductoCreateDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductoCreateDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductoCreateDto"
-              }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoria",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDtoPagedResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDtoPagedResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDtoPagedResult"
+                }
+              }
+            }
           }
         }
       }
@@ -708,8 +628,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -746,8 +666,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -755,24 +675,41 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductoUpdateDto"
+                "$ref": "#/components/schemas/UpdateProductoDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductoUpdateDto"
+                "$ref": "#/components/schemas/UpdateProductoDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductoUpdateDto"
+                "$ref": "#/components/schemas/UpdateProductoDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductoDto"
+                }
+              }
+            }
           }
         }
       },
@@ -786,8 +723,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -798,10 +735,207 @@
         }
       }
     },
-    "/api/Productos/{id}/stock": {
-      "patch": {
+    "/api/Usuarios/register": {
+      "post": {
         "tags": [
-          "Productos"
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuarios/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuarios/password/reset-request": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuarios/password/reset-complete": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Usuarios": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDtoPagedResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDtoPagedResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDtoPagedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Usuarios/{id}": {
+      "get": {
+        "tags": [
+          "Usuarios"
         ],
         "parameters": [
           {
@@ -809,8 +943,46 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -818,21 +990,59 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AjusteStockDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AjusteStockDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AjusteStockDto"
+                "$ref": "#/components/schemas/UpdateUserDto"
               }
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -882,8 +1092,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -910,77 +1120,16 @@
           }
         }
       }
-    },
-    "/api/Ventas/{id}/reenviar-factura": {
-      "post": {
-        "tags": [
-          "Ventas"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
-      "AjusteStockDto": {
-        "type": "object",
-        "properties": {
-          "delta": {
-            "maximum": 999999999,
-            "minimum": -999999999,
-            "type": "number",
-            "format": "double"
-          },
-          "motivo": {
-            "maxLength": 250,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CategoriaCreateDto": {
-        "required": [
-          "nombre"
-        ],
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "maxLength": 120,
-            "minLength": 2,
-            "type": "string"
-          },
-          "descripcion": {
-            "maxLength": 500,
-            "minLength": 0,
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "CategoriaDto": {
         "type": "object",
         "properties": {
           "idCategoria": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "nombre": {
             "type": "string",
@@ -1002,21 +1151,32 @@
         },
         "additionalProperties": false
       },
-      "CategoriaUpdateDto": {
+      "CategoriaDtoPagedResult": {
         "required": [
-          "nombre"
+          "items",
+          "page",
+          "pageSize",
+          "total"
         ],
         "type": "object",
         "properties": {
-          "nombre": {
-            "maxLength": 120,
-            "minLength": 2,
-            "type": "string"
+          "page": {
+            "type": "integer",
+            "format": "int32"
           },
-          "descripcion": {
-            "maxLength": 500,
-            "minLength": 0,
-            "type": "string",
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoriaDto"
+            },
             "nullable": true
           }
         },
@@ -1026,19 +1186,15 @@
         "type": "object",
         "properties": {
           "idCliente": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "idUsuario": {
-            "type": "number",
-            "format": "double",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "nombre": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
             "type": "string",
             "nullable": true
           },
@@ -1060,66 +1216,70 @@
           },
           "referencia": {
             "type": "string",
+            "nullable": true
+          },
+          "creadoEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "actualizadoEn": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "ClienteUpsertDto": {
+      "ClienteDtoPagedResult": {
         "required": [
-          "nombre"
+          "items",
+          "page",
+          "pageSize",
+          "total"
         ],
         "type": "object",
         "properties": {
-          "nombre": {
-            "maxLength": 150,
-            "minLength": 2,
-            "type": "string"
+          "page": {
+            "type": "integer",
+            "format": "int32"
           },
-          "email": {
-            "maxLength": 150,
-            "type": "string",
-            "format": "email",
-            "nullable": true
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
           },
-          "telefono": {
-            "pattern": "^[0-9\\s\\-\\+\\(\\)]{7,20}$",
-            "type": "string",
-            "nullable": true
+          "total": {
+            "type": "integer",
+            "format": "int32"
           },
-          "direccion": {
-            "maxLength": 200,
-            "type": "string",
-            "nullable": true
-          },
-          "departamento": {
-            "maxLength": 80,
-            "type": "string",
-            "nullable": true
-          },
-          "municipio": {
-            "maxLength": 80,
-            "type": "string",
-            "nullable": true
-          },
-          "referencia": {
-            "maxLength": 200,
-            "type": "string",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClienteDto"
+            },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
       "CrearOrdenDto": {
+        "required": [
+          "idCliente",
+          "items"
+        ],
         "type": "object",
         "properties": {
+          "idCliente": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
           "items": {
             "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/OrdenItemDto"
-            },
-            "nullable": true
+            }
           },
           "notas": {
             "maxLength": 500,
@@ -1129,41 +1289,77 @@
         },
         "additionalProperties": false
       },
-      "DETALLE_VENTAS": {
+      "CreateCategoriaDto": {
         "type": "object",
         "properties": {
-          "iD_DETALLE": {
-            "type": "number",
-            "format": "double"
-          },
-          "iD_VENTA": {
-            "type": "number",
-            "format": "double"
-          },
-          "iD_PRODUCTO": {
-            "type": "number",
-            "format": "double"
-          },
-          "cantidad": {
-            "type": "number",
-            "format": "double"
-          },
-          "preciO_UNITARIO": {
-            "type": "number",
-            "format": "double"
-          },
-          "subtotal": {
-            "type": "number",
-            "format": "double",
+          "nombre": {
+            "type": "string",
             "nullable": true
           },
-          "creadO_EN": {
+          "descripcion": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateClienteDto": {
+        "type": "object",
+        "properties": {
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
-          "actualizadO_EN": {
+          "nombre": {
             "type": "string",
-            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "departamento": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipio": {
+            "type": "string",
+            "nullable": true
+          },
+          "referencia": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateProductoDto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "precioUnitario": {
+            "type": "number",
+            "format": "double"
+          },
+          "stock": {
+            "type": "number",
+            "format": "double"
+          },
+          "idCategoria": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },
@@ -1172,7 +1368,7 @@
       "LoginDto": {
         "type": "object",
         "properties": {
-          "username": {
+          "usernameOrEmail": {
             "type": "string",
             "nullable": true
           },
@@ -1186,53 +1382,15 @@
       "OrdenItemDto": {
         "type": "object",
         "properties": {
-          "idProducto": {
-            "minimum": 1,
-            "type": "number",
-            "format": "double"
+          "id_producto": {
+            "type": "integer",
+            "format": "int32"
           },
           "cantidad": {
-            "maximum": 999999999,
-            "minimum": 0.001,
             "type": "number",
             "format": "double"
           },
-          "precioUnitario": {
-            "minimum": 0,
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ProductoCreateDto": {
-        "required": [
-          "descripcion",
-          "nombre"
-        ],
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "maxLength": 150,
-            "minLength": 2,
-            "type": "string"
-          },
-          "descripcion": {
-            "maxLength": 1000,
-            "minLength": 2,
-            "type": "string"
-          },
-          "precioUnitario": {
-            "minimum": 0,
-            "type": "number",
-            "format": "double"
-          },
-          "stock": {
-            "minimum": 0,
-            "type": "number",
-            "format": "double"
-          },
-          "idCategoria": {
+          "precio_unitario": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -1244,8 +1402,8 @@
         "type": "object",
         "properties": {
           "idProducto": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "nombre": {
             "type": "string",
@@ -1264,80 +1422,73 @@
             "format": "double"
           },
           "idCategoria": {
-            "type": "number",
-            "format": "double",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "ivaUnitario": {
             "type": "number",
-            "format": "double",
-            "nullable": true
+            "format": "double"
           },
           "precioConIva": {
             "type": "number",
-            "format": "double",
+            "format": "double"
+          },
+          "creadoEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "actualizadoEn": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "ProductoUpdateDto": {
+      "ProductoDtoPagedResult": {
         "required": [
-          "descripcion",
-          "nombre"
+          "items",
+          "page",
+          "pageSize",
+          "total"
         ],
         "type": "object",
         "properties": {
-          "nombre": {
-            "maxLength": 150,
-            "minLength": 2,
-            "type": "string"
+          "page": {
+            "type": "integer",
+            "format": "int32"
           },
-          "descripcion": {
-            "maxLength": 1000,
-            "minLength": 2,
-            "type": "string"
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
           },
-          "precioUnitario": {
-            "minimum": 0,
-            "type": "number",
-            "format": "double"
+          "total": {
+            "type": "integer",
+            "format": "int32"
           },
-          "stock": {
-            "minimum": 0,
-            "type": "number",
-            "format": "double"
-          },
-          "idCategoria": {
-            "type": "number",
-            "format": "double",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductoDto"
+            },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "RegisterDto": {
+      "RegisterUserDto": {
         "type": "object",
         "properties": {
           "username": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "email": {
             "type": "string",
             "nullable": true
           },
-          "email": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RequestResetDto": {
-        "type": "object",
-        "properties": {
-          "email": {
+          "password": {
             "type": "string",
             "nullable": true
           }
@@ -1347,16 +1498,192 @@
       "ResetPasswordDto": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "code": {
+          "token": {
             "type": "string",
             "nullable": true
           },
           "newPassword": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResetRequestDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateCategoriaDto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateClienteDto": {
+        "type": "object",
+        "properties": {
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "departamento": {
+            "type": "string",
+            "nullable": true
+          },
+          "municipio": {
+            "type": "string",
+            "nullable": true
+          },
+          "referencia": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateProductoDto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "precioUnitario": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "stock": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "idCategoria": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "rol": {
+            "type": "string",
+            "nullable": true
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "rol": {
+            "type": "string",
+            "nullable": true
+          },
+          "estado": {
+            "type": "string",
+            "nullable": true
+          },
+          "creadoEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "actualizadoEn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserDtoPagedResult": {
+        "required": [
+          "items",
+          "page",
+          "pageSize",
+          "total"
+        ],
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserDto"
+            },
             "nullable": true
           }
         },
@@ -1382,12 +1709,12 @@
         "type": "object",
         "properties": {
           "idDetalle": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "idProducto": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "cantidad": {
             "type": "number",
@@ -1400,6 +1727,10 @@
           "importe": {
             "type": "number",
             "format": "double"
+          },
+          "nombreProducto": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1408,16 +1739,16 @@
         "type": "object",
         "properties": {
           "idVenta": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "fecha": {
             "type": "string",
             "format": "date-time"
           },
           "idCliente": {
-            "type": "number",
-            "format": "double",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "totalBruto": {
@@ -1434,21 +1765,20 @@
           }
         },
         "additionalProperties": false
-      },
-      "VerifyCodeDto": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "code": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Usa: Bearer {tu_token_jwt}",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

@@ -1,0 +1,814 @@
+{
+	"info": {
+		"_postman_id": "ed7061e0-0bf7-488e-bb61-cdc80a250435",
+		"name": "QuickMarket API",
+		"description": "Colección para probar QuickMarket API (Usuarios, Clientes, Categorías, Productos, Ventas).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43850714",
+		"_collection_link": "https://red-escape-2236954.postman.co/workspace/Alekey_31's-Workspace~f892a251-9f8d-4289-813e-f7255b632dd4/collection/43850714-ed7061e0-0bf7-488e-bb61-cdc80a250435?action=share&source=collection_link&creator=43850714"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Registrar",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"cliente1\",\n  \"email\": \"cliente@gmail.com\",\n  \"password\": \"pass123\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });",
+									"try {",
+									"  var data = pm.response.json();",
+									"  if (data && data.token) {",
+									"    pm.collectionVariables.set(\"token\", data.token);",
+									"    pm.test(\"Token guardado en collectionVariables\", function(){ pm.expect(pm.collectionVariables.get(\"token\")).to.be.a('string'); });",
+									"  } else {",
+									"    pm.test(\"Respuesta contiene token\", function(){ pm.expect(false, \"No se encontró 'token' en la respuesta\").to.be.true; });",
+									"  }",
+									"} catch (e) {",
+									"  pm.test(\"JSON válido\", function(){ pm.expect(false, \"Respuesta no es JSON\").to.be.true; });",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usernameOrEmail\": \"admin\",\n  \"password\": \"pass123\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset - solicitar token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"osbelitojin@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios/password/reset-request",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios",
+								"password",
+								"reset-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset - completar (usar token real)",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"23373\",\n  \"newPassword\": \"osbelito\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios/password/reset-complete",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios",
+								"password",
+								"reset-complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsuarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios?page=1&pageSize=20",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"email\": \"alexanderdeleon0431@gmail.com\",\n  \"rol\": \"administrador\",\n  \"estado\": \"activo\",\n  \"newPassword\": \"pass123\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Usuarios/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuarios/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"abarrotería\",\n  \"descripcion\": \"Productos de abarrotería\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Categorias",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por id",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Categorias/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Categorias?page=1&pageSize=20",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Categorias"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Lácteos y Huevos\",\n  \"descripcion\": \"Productos lácteos y derivados\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Categorias/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Categorias/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Categorias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idUsuario\": 2,\n  \"nombre\": \"Juan Pérez\",\n  \"telefono\": \"555-1234\",\n  \"direccion\": \"Calle Falsa 123\",\n  \"departamento\": \"Guatemala\",\n  \"municipio\": \"Mixco\",\n  \"referencia\": \"Frente a la tienda\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Clientes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Clientes/by-user/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Clientes",
+								"by-user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Clientes?page=1&pageSize=20",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Clientes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Juan P. Actualizado\",\n  \"telefono\": \"555-9999\",\n  \"direccion\": \"Av. Siempre Viva 742\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Clientes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Clientes/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"jugo de naranja\",\n  \"descripcion\": \"Bolsa 1L\",\n  \"precioUnitario\": 10.5,\n  \"stock\": 50,\n  \"idCategoria\": 1\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Productos",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por id",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Productos/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Productos?page=1&pageSize=20",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Productos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Leche deslactosada\",\n  \"precioUnitario\": 11.25,\n  \"stock\": 60\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Productos/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Productos/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ventas",
+			"item": [
+				{
+					"name": "Crear venta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idCliente\": 1,\n  \"items\": [\n    {\n      \"id_producto\": 1,\n      \"cantidad\": 2,\n      \"precio_unitario\": 10.5\n    },\n    {\n      \"id_producto\": 2,\n      \"cantidad\": 1\n    }\n  ],\n  \"notas\": \"Entrega rápida por favor\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:7205/api/Ventas",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Ventas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener venta con detalle",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7205/api/Ventas/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7205",
+							"path": [
+								"api",
+								"Ventas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

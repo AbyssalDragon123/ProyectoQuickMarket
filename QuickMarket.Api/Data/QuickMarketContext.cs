@@ -1,7 +1,7 @@
-﻿// Data/QuickMarketContext.cs
+﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuickMarket.Api.Models;
-using System.Threading;
 
 namespace QuickMarket.Api.Data
 {
@@ -9,209 +9,277 @@ namespace QuickMarket.Api.Data
     {
         public QuickMarketContext(DbContextOptions<QuickMarketContext> options) : base(options) { }
 
-        public DbSet<USUARIOS> USUARIOS { get; set; }
-        public DbSet<CLIENTES> CLIENTES { get; set; }
-        public DbSet<CATEGORIAS> CATEGORIAS { get; set; }
-        public DbSet<PRODUCTOS> PRODUCTOS { get; set; }
-        public DbSet<VENTAS> VENTAS { get; set; }
-        public DbSet<DETALLE_VENTAS> DETALLE_VENTAS { get; set; }
+        // ===== DbSets =====
+        public DbSet<Usuario> Usuarios => Set<Usuario>();
+        public DbSet<Cliente> Clientes => Set<Cliente>();
+        public DbSet<Categoria> Categorias => Set<Categoria>();
+        public DbSet<Producto> Productos => Set<Producto>();
+        public DbSet<Venta> Ventas => Set<Venta>();
+        public DbSet<DetalleVenta> DetalleVentas => Set<DetalleVenta>();
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder b)
         {
-            modelBuilder.Entity<USUARIOS>().ToTable("USUARIOS");
-            modelBuilder.Entity<CLIENTES>().ToTable("CLIENTES");
-            modelBuilder.Entity<CATEGORIAS>().ToTable("CATEGORIAS");
-            modelBuilder.Entity<PRODUCTOS>().ToTable("PRODUCTOS");
-            modelBuilder.Entity<VENTAS>().ToTable("VENTAS");
-            modelBuilder.Entity<DETALLE_VENTAS>().ToTable("DETALLE_VENTAS");
+            base.OnModelCreating(b);
 
-            // ===== USUARIOS =====
-            modelBuilder.Entity<USUARIOS>(e =>
+            // =========================
+            // USUARIOS
+            // =========================
+            b.Entity<Usuario>(e =>
             {
-                e.HasKey(x => x.ID_USUARIO);
-                e.Property(x => x.USERNAME).HasColumnType("VARCHAR2(80)").IsRequired();
-                e.Property(x => x.EMAIL).HasColumnType("VARCHAR2(150)").IsRequired();
-                e.Property(x => x.PASSWORD_HASH).HasColumnType("VARCHAR2(255)").IsRequired();
-                e.Property(x => x.ROL).HasColumnType("VARCHAR2(20)").HasDefaultValue("cliente");
-                e.Property(x => x.ESTADO).HasColumnType("VARCHAR2(20)").HasDefaultValue("activo");
-                e.Property(x => x.RESET_TOKEN).HasColumnType("VARCHAR2(255)");
-                e.Property(x => x.RESET_EXPIRA).HasColumnType("TIMESTAMP");
-                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
-                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+                e.ToTable("USUARIOS");
+                e.HasKey(x => x.IdUsuario).HasName("PK_USUARIOS");
+
+                e.Property(x => x.IdUsuario)
+                    .HasColumnName("ID_USUARIO")
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SQ_USUARIOS.NEXTVAL"); // si usas trigger+secuencia
+
+                e.Property(x => x.Username).HasColumnName("USERNAME").HasMaxLength(50).IsRequired();
+                e.Property(x => x.Email).HasColumnName("EMAIL").HasMaxLength(150).IsRequired();
+                e.Property(x => x.PasswordHash).HasColumnName("PASSWORD_HASH").HasMaxLength(255).IsRequired();
+                e.Property(x => x.Rol).HasColumnName("ROL").HasMaxLength(20).HasDefaultValue("cliente").IsRequired();
+                e.Property(x => x.Estado).HasColumnName("ESTADO").HasMaxLength(20).HasDefaultValue("activo").IsRequired();
+
+                e.Property(x => x.ResetToken).HasColumnName("RESET_TOKEN").HasMaxLength(255);
+                e.Property(x => x.ResetExpira).HasColumnName("RESET_EXPIRA");
+
+                e.Property(x => x.CreadoEn).HasColumnName("CREADO_EN");
+                e.Property(x => x.ActualizadoEn).HasColumnName("ACTUALIZADO_EN");
+
+                e.HasIndex(x => x.Username).HasDatabaseName("IX_USUARIOS_USERNAME");
+                e.HasIndex(x => x.Email).HasDatabaseName("IX_USUARIOS_EMAIL");
             });
 
-            // ===== CATEGORIAS =====
-            modelBuilder.Entity<CATEGORIAS>(e =>
+            // =========================
+            // CLIENTES (1:1 opcional con USUARIOS)
+            // =========================
+            b.Entity<Cliente>(e =>
             {
-                e.HasKey(x => x.ID_CATEGORIA);
+                e.ToTable("CLIENTES");
+                e.HasKey(x => x.IdCliente).HasName("PK_CLIENTES");
 
-                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(120)").IsRequired();
-                e.Property(x => x.DESCRIPCION).HasColumnType("VARCHAR2(500)");
+                e.Property(x => x.IdCliente)
+                    .HasColumnName("ID_CLIENTE")
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SQ_CLIENTES.NEXTVAL");
 
-                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
-                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+                e.Property(x => x.IdUsuario).HasColumnName("ID_USUARIO");
+                e.Property(x => x.Nombre).HasColumnName("NOMBRE").HasMaxLength(150).IsRequired();
+                e.Property(x => x.Telefono).HasColumnName("TELEFONO").HasMaxLength(30);
+                e.Property(x => x.Direccion).HasColumnName("DIRECCION").HasMaxLength(200);
+                e.Property(x => x.Departamento).HasColumnName("DEPARTAMENTO").HasMaxLength(80);
+                e.Property(x => x.Municipio).HasColumnName("MUNICIPIO").HasMaxLength(80);
+                e.Property(x => x.Referencia).HasColumnName("REFERENCIA").HasMaxLength(200);
+                e.Property(x => x.CreadoEn).HasColumnName("CREADO_EN");
+                e.Property(x => x.ActualizadoEn).HasColumnName("ACTUALIZADO_EN");
 
-                // Índice único case-insensitive UPPER(NOMBRE) se crea por SQL (Oracle) fuera de EF.
+                e.HasIndex(x => x.IdUsuario).IsUnique().HasDatabaseName("UQ_CLIENTES_ID_USUARIO");
+
+                e.HasOne(x => x.Usuario)
+                    .WithOne()
+                    .HasForeignKey<Cliente>(x => x.IdUsuario)
+                    .HasConstraintName("FK_CLIENTE_USUARIO")
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
-            // ===== PRODUCTOS =====
-            modelBuilder.Entity<PRODUCTOS>(e =>
+            // =========================
+            // CATEGORIAS
+            // =========================
+            b.Entity<Categoria>(e =>
             {
-                e.HasKey(x => x.ID_PRODUCTO);
+                e.ToTable("CATEGORIAS");
+                e.HasKey(x => x.IdCategoria).HasName("PK_CATEGORIAS");
 
-                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(150)").IsRequired();
-                e.Property(x => x.DESCRIPCION).HasColumnType("VARCHAR2(1000)").IsRequired();
+                e.Property(x => x.IdCategoria)
+                    .HasColumnName("ID_CATEGORIA")
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SQ_CATEGORIAS.NEXTVAL");
 
-                // Precio/base y stock
-                e.Property(x => x.PRECIO_UNITARIO).HasColumnType("NUMBER(18,2)").IsRequired();
-                e.Property(x => x.STOCK).HasColumnType("NUMBER(18,3)").HasDefaultValue(0);
+                e.Property(x => x.Nombre).HasColumnName("NOMBRE").HasMaxLength(100).IsRequired();
+                e.Property(x => x.Descripcion).HasColumnName("DESCRIPCION").HasMaxLength(255);
+                e.Property(x => x.CreadoEn).HasColumnName("CREADO_EN");
+                e.Property(x => x.ActualizadoEn).HasColumnName("ACTUALIZADO_EN");
 
-                // FK categoría (opcional)
-                e.Property(x => x.ID_CATEGORIA).HasColumnType("NUMBER");
-
-                // Calculados por la BD (triggers/paquete) -> EF no los setea
-                e.Property(x => x.IVA_UNITARIO)
-                 .HasColumnType("NUMBER(18,2)")
-                 .ValueGeneratedOnAddOrUpdate();
-
-                e.Property(x => x.PRECIO_CON_IVA)
-                 .HasColumnType("NUMBER(18,2)")
-                 .ValueGeneratedOnAddOrUpdate();
-
-                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
-                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
-
-                e.HasOne<CATEGORIAS>()
-                 .WithMany()
-                 .HasForeignKey(p => p.ID_CATEGORIA)
-                 .OnDelete(DeleteBehavior.SetNull);
-
-                // Sugerencia: índice único case-insensitive por (ID_CATEGORIA, UPPER(NOMBRE)) crear vía SQL.
-                // e.HasIndex(p => new { p.ID_CATEGORIA, p.NOMBRE }).IsUnique().HasDatabaseName("UQ_PROD_CAT_NOMBRE"); // (no CI)
+                e.HasIndex(x => x.Nombre).HasDatabaseName("IX_CATEGORIAS_NOMBRE");
             });
 
-            // ===== CLIENTES (1:1 con USUARIOS) =====
-            modelBuilder.Entity<CLIENTES>(e =>
+            // =========================
+            // PRODUCTOS
+            // =========================
+            b.Entity<Producto>(e =>
             {
-                e.HasKey(x => x.ID_CLIENTE);
-                e.Property(x => x.ID_USUARIO).HasColumnType("NUMBER");
-                e.Property(x => x.NOMBRE).HasColumnType("VARCHAR2(150)").IsRequired();
-                e.Property(x => x.EMAIL).HasColumnType("VARCHAR2(150)");
-                e.Property(x => x.TELEFONO).HasColumnType("VARCHAR2(30)");
-                e.Property(x => x.DIRECCION).HasColumnType("VARCHAR2(200)");
-                e.Property(x => x.DEPARTAMENTO).HasColumnType("VARCHAR2(80)");
-                e.Property(x => x.MUNICIPIO).HasColumnType("VARCHAR2(80)");
-                e.Property(x => x.REFERENCIA).HasColumnType("VARCHAR2(200)");
-                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
-                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+                e.ToTable("PRODUCTOS");
+                e.HasKey(x => x.IdProducto).HasName("PK_PRODUCTOS");
 
-                e.HasIndex(x => x.ID_USUARIO).IsUnique().HasDatabaseName("UQ_CLIENTES_USUARIO");
+                e.Property(x => x.IdProducto)
+                    .HasColumnName("ID_PRODUCTO")
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SQ_PRODUCTOS.NEXTVAL");
 
-                e.HasOne<USUARIOS>()
-                 .WithOne()
-                 .HasForeignKey<CLIENTES>(c => c.ID_USUARIO)
-                 .OnDelete(DeleteBehavior.SetNull);
+                e.Property(x => x.Nombre).HasColumnName("NOMBRE").HasMaxLength(120).IsRequired();
+                e.Property(x => x.Descripcion).HasColumnName("DESCRIPCION").HasMaxLength(120).IsRequired();
+
+                e.Property(x => x.PrecioUnitario)
+                    .HasColumnName("PRECIO_UNITARIO")
+                    .HasPrecision(12, 2)
+                    .IsRequired();
+
+                e.Property(x => x.Stock)
+                    .HasColumnName("STOCK")
+                    .HasPrecision(12, 3)
+                    .HasDefaultValue(0)
+                    .IsRequired();
+
+                e.Property(x => x.IdCategoria).HasColumnName("ID_CATEGORIA");
+
+                e.Property(x => x.IvaUnitario)
+                    .HasColumnName("IVA_UNITARIO")
+                    .HasPrecision(12, 2)
+                    .ValueGeneratedOnAddOrUpdate();
+
+                e.Property(x => x.PrecioConIva)
+                    .HasColumnName("PRECIO_CON_IVA")
+                    .HasPrecision(12, 2)
+                    .ValueGeneratedOnAddOrUpdate();
+
+                e.Property(x => x.CreadoEn).HasColumnName("CREADO_EN");
+                e.Property(x => x.ActualizadoEn).HasColumnName("ACTUALIZADO_EN");
+
+                e.HasIndex(x => x.IdCategoria).HasDatabaseName("IX_PRODUCTOS_CATEGORIA");
+                e.HasIndex(x => x.Nombre).HasDatabaseName("IX_PRODUCTOS_NOMBRE");
+
+                e.HasOne(x => x.Categoria)
+                    .WithMany(c => c.Productos)
+                    .HasForeignKey(x => x.IdCategoria)
+                    .HasConstraintName("FK_PRODUCTO_CATEGORIA")
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
-            // ===== VENTAS =====
-            modelBuilder.Entity<VENTAS>(e =>
+            // =========================
+            // VENTAS
+            // =========================
+            b.Entity<Venta>(e =>
             {
-                e.HasKey(x => x.ID_VENTA);
-                e.Property(x => x.FECHA).HasColumnType("TIMESTAMP").IsRequired();
-                e.Property(x => x.ID_CLIENTE).HasColumnType("NUMBER");
+                e.ToTable("VENTAS");
+                e.HasKey(x => x.IdVenta).HasName("PK_VENTAS");
 
-                e.Property(x => x.TOTAL_BRUTO).HasColumnType("NUMBER(18,2)").HasDefaultValue(0);
-                e.Property(x => x.TOTAL_IMPUESTOS).HasColumnType("NUMBER(18,2)").HasDefaultValue(0);
-                e.Property(x => x.TOTAL_NETO).HasColumnType("NUMBER(18,2)").HasDefaultValue(0);
+                e.Property(x => x.IdVenta)
+                    .HasColumnName("ID_VENTA")
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SQ_VENTAS.NEXTVAL");
 
-                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
-                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+                e.Property(x => x.Fecha).HasColumnName("FECHA"); // en DB: DATE default SYSDATE
+                e.Property(x => x.IdCliente).HasColumnName("ID_CLIENTE");
 
-                e.HasOne<CLIENTES>()
-                 .WithMany()
-                 .HasForeignKey(v => v.ID_CLIENTE)
-                 .OnDelete(DeleteBehavior.SetNull);
+                e.Property(x => x.TotalBruto).HasColumnName("TOTAL_BRUTO").HasPrecision(12, 2).HasDefaultValue(0).IsRequired();
+                e.Property(x => x.TotalImpuestos).HasColumnName("TOTAL_IMPUESTOS").HasPrecision(12, 2).HasDefaultValue(0).IsRequired();
+                e.Property(x => x.TotalNeto).HasColumnName("TOTAL_NETO").HasPrecision(12, 2).HasDefaultValue(0).IsRequired();
+
+                e.Property(x => x.CreadoEn).HasColumnName("CREADO_EN");
+                e.Property(x => x.ActualizadoEn).HasColumnName("ACTUALIZADO_EN");
+
+                e.HasIndex(x => x.IdCliente).HasDatabaseName("IX_VENTAS_CLIENTE");
+
+                e.HasOne(x => x.Cliente)
+                    .WithMany()
+                    .HasForeignKey(x => x.IdCliente)
+                    .HasConstraintName("FK_VENTA_CLIENTE")
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
-            // ===== DETALLE_VENTAS =====
-            modelBuilder.Entity<DETALLE_VENTAS>(e =>
+            // =========================
+            // DETALLE_VENTAS
+            // =========================
+            b.Entity<DetalleVenta>(e =>
             {
-                e.HasKey(x => x.ID_DETALLE);
+                e.ToTable("DETALLE_VENTAS");
+                e.HasKey(x => x.IdDetalle).HasName("PK_DETALLE_VENTAS");
 
-                e.Property(x => x.ID_VENTA).HasColumnType("NUMBER").IsRequired();
-                e.Property(x => x.ID_PRODUCTO).HasColumnType("NUMBER").IsRequired();
+                e.Property(x => x.IdDetalle)
+                    .HasColumnName("ID_DETALLE")
+                    .ValueGeneratedOnAdd()
+                    .HasDefaultValueSql("SQ_DETALLE_VENTAS.NEXTVAL");
 
-                e.Property(x => x.CANTIDAD).HasColumnType("NUMBER(18,3)").IsRequired();
-                e.Property(x => x.PRECIO_UNITARIO).HasColumnType("NUMBER(18,2)").IsRequired();
+                e.Property(x => x.IdVenta).HasColumnName("ID_VENTA").IsRequired();
+                e.Property(x => x.IdProducto).HasColumnName("ID_PRODUCTO").IsRequired();
 
-                // SUBTOTAL lo calcula la BD
-                e.Property(x => x.SUBTOTAL)
-                 .HasColumnType("NUMBER(18,2)")
-                 .ValueGeneratedOnAddOrUpdate();
+                e.Property(x => x.Cantidad)
+                    .HasColumnName("CANTIDAD")
+                    .HasPrecision(12, 3)
+                    .IsRequired();
 
-                e.Property(x => x.CREADO_EN).HasColumnType("TIMESTAMP").HasDefaultValueSql("SYSTIMESTAMP");
-                e.Property(x => x.ACTUALIZADO_EN).HasColumnType("TIMESTAMP");
+                e.Property(x => x.PrecioUnitario)
+                    .HasColumnName("PRECIO_UNITARIO")
+                    .HasPrecision(12, 2)
+                    .IsRequired();
 
-                e.HasOne<VENTAS>()
-                 .WithMany()
-                 .HasForeignKey(d => d.ID_VENTA)
-                 .OnDelete(DeleteBehavior.Cascade);
+                e.Property(x => x.Subtotal)
+                    .HasColumnName("SUBTOTAL")
+                    .HasPrecision(12, 2)
+                    .ValueGeneratedOnAddOrUpdate();
 
-                e.HasOne<PRODUCTOS>()
-                 .WithMany()
-                 .HasForeignKey(d => d.ID_PRODUCTO);
+                e.Property(x => x.CreadoEn).HasColumnName("CREADO_EN");
+                e.Property(x => x.ActualizadoEn).HasColumnName("ACTUALIZADO_EN");
 
-                e.HasIndex(d => new { d.ID_VENTA, d.ID_PRODUCTO }).IsUnique();
+                e.HasIndex(x => x.IdVenta).HasDatabaseName("IX_DETALLE_VENTAS_VENTA");
+                e.HasIndex(x => x.IdProducto).HasDatabaseName("IX_DETALLE_VENTAS_PRODUCTO");
+                e.HasIndex(x => new { x.IdVenta, x.IdProducto }).IsUnique().HasDatabaseName("UQ_DET_VENTA_PRODUCTO");
+
+                e.HasOne(x => x.Venta)
+                    .WithMany(v => v.Detalles)
+                    .HasForeignKey(x => x.IdVenta)
+                    .HasConstraintName("FK_DET_VENTA")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                e.HasOne(x => x.Producto)
+                    .WithMany()
+                    .HasForeignKey(x => x.IdProducto)
+                    .HasConstraintName("FK_DET_PRODUCTO")
+                    .OnDelete(DeleteBehavior.Restrict);
             });
-        }
 
-        // Normaliza cadenas clave antes de guardar
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            NormalizeStrings();
-            return base.SaveChangesAsync(cancellationToken);
-        }
+            // ==========================================================
+            // CONVERSORES GLOBALES (aplican a TODAS las entidades)
+            // - bool/bool? -> NUMBER(1) (0/1) — evita ... = FALSE/TRUE
+            // - DateTime/DateTime? -> fuerza Kind=Utc al leer/escribir
+            // ==========================================================
+            var boolToNumber = new ValueConverter<bool, int>(v => v ? 1 : 0, v => v == 1);
+            var boolToNumberN = new ValueConverter<bool?, int?>(
+                v => v.HasValue ? (v.Value ? 1 : 0) : (int?)null,
+                v => v.HasValue ? v.Value == 1 : (bool?)null
+            );
+            var toUtc = new ValueConverter<DateTime, DateTime>(
+                v => DateTime.SpecifyKind(v, DateTimeKind.Utc),
+                v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+            );
+            var toUtcN = new ValueConverter<DateTime?, DateTime?>(
+                v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v,
+                v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v
+            );
 
-        public override int SaveChanges()
-        {
-            NormalizeStrings();
-            return base.SaveChanges();
-        }
-
-        private void NormalizeStrings()
-        {
-            foreach (var e in ChangeTracker.Entries<USUARIOS>())
-            {
-                if (e.State is EntityState.Added or EntityState.Modified)
+            foreach (var et in b.Model.GetEntityTypes())
+                foreach (var p in et.GetProperties())
                 {
-                    if (!string.IsNullOrWhiteSpace(e.Entity.USERNAME))
-                        e.Entity.USERNAME = e.Entity.USERNAME.Trim().ToUpperInvariant();
-                    if (!string.IsNullOrWhiteSpace(e.Entity.EMAIL))
-                        e.Entity.EMAIL = e.Entity.EMAIL.Trim().ToUpperInvariant();
+                    if (p.ClrType == typeof(bool))
+                    {
+                        p.SetValueConverter(boolToNumber);
+                        p.SetColumnType("NUMBER(1)");
+                        if (p.GetDefaultValue() is null) p.SetDefaultValue(0);
+                    }
+                    else if (p.ClrType == typeof(bool?))
+                    {
+                        p.SetValueConverter(boolToNumberN);
+                        p.SetColumnType("NUMBER(1)");
+                    }
+                    else if (p.ClrType == typeof(DateTime))
+                    {
+                        p.SetValueConverter(toUtc);
+                    }
+                    else if (p.ClrType == typeof(DateTime?))
+                    {
+                        p.SetValueConverter(toUtcN);
+                    }
                 }
-            }
-
-            foreach (var e in ChangeTracker.Entries<CATEGORIAS>())
-            {
-                if (e.State is EntityState.Added or EntityState.Modified)
-                {
-                    if (!string.IsNullOrWhiteSpace(e.Entity.NOMBRE))
-                        e.Entity.NOMBRE = e.Entity.NOMBRE.Trim().ToUpperInvariant();
-                    if (!string.IsNullOrWhiteSpace(e.Entity.DESCRIPCION))
-                        e.Entity.DESCRIPCION = e.Entity.DESCRIPCION.Trim();
-                }
-            }
-
-            foreach (var e in ChangeTracker.Entries<PRODUCTOS>())
-            {
-                if (e.State is EntityState.Added or EntityState.Modified)
-                {
-                    if (!string.IsNullOrWhiteSpace(e.Entity.NOMBRE))
-                        e.Entity.NOMBRE = e.Entity.NOMBRE.Trim().ToUpperInvariant();
-                    if (!string.IsNullOrWhiteSpace(e.Entity.DESCRIPCION))
-                        e.Entity.DESCRIPCION = e.Entity.DESCRIPCION.Trim();
-                }
-            }
         }
     }
 }

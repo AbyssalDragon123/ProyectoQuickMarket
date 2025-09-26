@@ -1,25 +1,19 @@
-﻿// Models/CLIENTES.cs
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using QuickMarket.Api.Models;
 
-namespace QuickMarket.Api.Models
+public class Cliente
 {
-    public class CLIENTES
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public decimal ID_CLIENTE { get; set; }
+    public int IdCliente { get; set; }
+    public int? IdUsuario { get; set; }
+    public string Nombre { get; set; } = null!;
+    public string? Telefono { get; set; }
+    public string? Direccion { get; set; }
+    public string? Departamento { get; set; }
+    public string? Municipio { get; set; }
+    public string? Referencia { get; set; }
 
-        // Vínculo 1:1 con USUARIOS (el dueño de este perfil de cliente)
-        public decimal? ID_USUARIO { get; set; }
+    public DateTime CreadoEn { get; set; }
+    public DateTime? ActualizadoEn { get; set; }
 
-        public string NOMBRE { get; set; } = null!;
-        public string? EMAIL { get; set; }
-        public string? TELEFONO { get; set; }
-        public string? DIRECCION { get; set; }
-        public string? DEPARTAMENTO { get; set; }
-        public string? MUNICIPIO { get; set; }
-        public string? REFERENCIA { get; set; }
-
-        public DateTime CREADO_EN { get; set; }
-        public DateTime? ACTUALIZADO_EN { get; set; }
-    }
+    // Navegación
+    public Usuario? Usuario { get; set; }
 }

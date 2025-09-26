@@ -1,82 +1,66 @@
-﻿// Controllers/ClientesController.cs
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using QuickMarket.Api.Data;
 using QuickMarket.Api.Dtos;
-using QuickMarket.Api.Models;
+using QuickMarket.Api.Services;
 
 namespace QuickMarket.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ClientesController : ControllerBase
     {
-        private readonly QuickMarketContext _db;
-        public ClientesController(QuickMarketContext db) => _db = db;
+        private readonly IClientesService _svc;
+        private readonly ILogger<ClientesController> _log;
 
-        private static decimal UserId(ClaimsPrincipal u)
+        public ClientesController(IClientesService svc, ILogger<ClientesController> log)
         {
-            var sub = u.FindFirstValue(JwtRegisteredClaimNames.Sub)
-                   ?? throw new UnauthorizedAccessException("Token sin sub.");
-            return decimal.Parse(sub);
+            _svc = svc; _log = log;
         }
 
-        // GET: api/clientes/me
-        [HttpGet("me")]
-        public async Task<ActionResult<ClienteDto>> GetMine()
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult<ClienteDto>> Create([FromBody] CreateClienteDto dto, CancellationToken ct)
         {
-            var uid = UserId(User);
-            var c = await _db.CLIENTES.AsNoTracking()
-                        .FirstOrDefaultAsync(x => x.ID_USUARIO == uid);
-            if (c is null) return NotFound();
-
-            return new ClienteDto(
-                c.ID_CLIENTE, c.ID_USUARIO, c.NOMBRE, c.EMAIL, c.TELEFONO,
-                c.DIRECCION, c.DEPARTAMENTO, c.MUNICIPIO, c.REFERENCIA
-            );
+            var created = await _svc.CreateAsync(dto, ct);
+            return CreatedAtAction(nameof(GetById), new { id = created.IdCliente }, created);
         }
 
-        // PUT: api/clientes/me  (crea o actualiza el perfil del usuario actual)
-        [HttpPut("me")]
-        public async Task<IActionResult> UpsertMine([FromBody] ClienteUpsertDto dto)
+        [HttpGet("{id:int}")]
+        [Authorize]
+        public async Task<ActionResult<ClienteDto>> GetById(int id, CancellationToken ct)
         {
-            var uid = UserId(User);
-            var c = await _db.CLIENTES.FirstOrDefaultAsync(x => x.ID_USUARIO == uid);
+            var c = await _svc.GetAsync(id, ct);
+            return c is null ? NotFound() : Ok(c);
+        }
 
-            if (c is null)
-            {
-                c = new CLIENTES
-                {
-                    ID_USUARIO = uid,
-                    NOMBRE = dto.Nombre,
-                    EMAIL = dto.Email?.Trim(),
-                    TELEFONO = dto.Telefono?.Trim(),
-                    DIRECCION = dto.Direccion?.Trim(),
-                    DEPARTAMENTO = dto.Departamento?.Trim(),
-                    MUNICIPIO = dto.Municipio?.Trim(),
-                    REFERENCIA = dto.Referencia?.Trim(),
-                    CREADO_EN = DateTime.UtcNow
-                };
-                _db.CLIENTES.Add(c);
-            }
-            else
-            {
-                c.NOMBRE = dto.Nombre;
-                c.EMAIL = dto.Email?.Trim();
-                c.TELEFONO = dto.Telefono?.Trim();
-                c.DIRECCION = dto.Direccion?.Trim();
-                c.DEPARTAMENTO = dto.Departamento?.Trim();
-                c.MUNICIPIO = dto.Municipio?.Trim();
-                c.REFERENCIA = dto.Referencia?.Trim();
-                c.ACTUALIZADO_EN = DateTime.UtcNow;
-            }
+        [HttpGet("by-user/{idUsuario:int}")]
+        [Authorize]
+        public async Task<ActionResult<ClienteDto>> GetByUsuario(int idUsuario, CancellationToken ct)
+        {
+            var c = await _svc.GetByUsuarioAsync(idUsuario, ct);
+            return c is null ? NotFound() : Ok(c);
+        }
 
-            await _db.SaveChangesAsync();
-            return Ok(new { message = "Perfil de cliente guardado.", idCliente = c.ID_CLIENTE });
+        [HttpGet]
+        [Authorize(Roles = "administrador")]
+        public async Task<ActionResult<PagedResult<ClienteDto>>> List(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] string? q = null,
+            CancellationToken ct = default)
+            => Ok(await _svc.ListAsync(page, pageSize, q, ct));
+
+        [HttpPut("{id:int}")]
+        [Authorize]
+        public async Task<ActionResult<ClienteDto>> Update(int id, [FromBody] UpdateClienteDto dto, CancellationToken ct)
+            => Ok(await _svc.UpdateAsync(id, dto, ct));
+
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "administrador")]
+        public async Task<IActionResult> Delete(int id, CancellationToken ct)
+        {
+            await _svc.DeleteAsync(id, ct);
+            return NoContent();
         }
     }
 }

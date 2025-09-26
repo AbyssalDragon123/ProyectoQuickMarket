@@ -1,45 +1,63 @@
-﻿// Dtos/VentasDtos.cs
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace QuickMarket.Api.Dtos
 {
     // Item que envía el frontend (sin impuestos)
-    public record OrdenItemDto(
-        [property: Range(1, double.MaxValue)] decimal IdProducto,
-        [property: Range(typeof(decimal), "0.001", "999999999", ErrorMessage = "Cantidad debe ser > 0")]
+    // ✅ Record posicional: los atributos de validación van en los PARÁMETROS.
+    public sealed record OrdenItemDto(
+        [property: JsonPropertyName("id_producto")]
+        [Required, Range(1, int.MaxValue, ErrorMessage = "IdProducto debe ser >= 1")]
+        int IdProducto,
+
+        [property: JsonPropertyName("cantidad")]
+        [Required, Range(typeof(decimal), "0.001", "79228162514264337593543950335",
+            ErrorMessage = "Cantidad debe ser > 0")]
         decimal Cantidad,
-        [property: Range(0.0, double.MaxValue)] decimal PrecioUnitario
+
+        // Opcional: si viene null o 0, se toma el precio de PRODUCTOS
+        [property: JsonPropertyName("precio_unitario")]
+        [Range(typeof(decimal), "0", "79228162514264337593543950335",
+            ErrorMessage = "PrecioUnitario no puede ser negativo")]
+        decimal? PrecioUnitario
     );
 
-    // Crear orden: el frontend NO manda totales (los hace la BD)
+    // Crear orden: el frontend NO manda totales (los hace la BD/servicio)
     public class CrearOrdenDto
     {
-        [MinLength(1, ErrorMessage = "La orden no tiene items.")]
+        [Required, Range(1, int.MaxValue)]
+        public int IdCliente { get; set; }
+
+        [Required, MinLength(1, ErrorMessage = "La orden no tiene items.")]
         public List<OrdenItemDto> Items { get; set; } = new();
 
-        [MaxLength(500)] public string? Notas { get; set; }
+        [MaxLength(500)]
+        public string? Notas { get; set; }
     }
 
-    // Venta resumida
+    // Venta resumida (salida)
     public record VentaResumenDto(
-        decimal IdVenta,
+        int IdVenta,
         DateTime Fecha,
-        decimal? IdCliente,
+        int? IdCliente,
         decimal TotalBruto,
         decimal TotalImpuestos,
         decimal TotalNeto
     );
 
-    // Item de venta para mostrar en factura/resumen
+    // Item de venta para mostrar en factura/resumen (salida)
     public record VentaItemDto(
-        decimal IdDetalle,
-        decimal IdProducto,
+        int IdDetalle,
+        int IdProducto,
         decimal Cantidad,
         decimal PrecioUnitario,
-        decimal Importe // Cantidad * PrecioUnitario (display)
+        decimal Importe,           // Cantidad * PrecioUnitario (display)
+        string? NombreProducto
     );
 
-    // Venta + detalle
+    // Venta + detalle (salida)
     public record VentaConDetalleDto(
         VentaResumenDto Venta,
         List<VentaItemDto> Detalle
